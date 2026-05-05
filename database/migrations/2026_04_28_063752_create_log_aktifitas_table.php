@@ -13,6 +13,23 @@ return new class extends Migration
     {
         Schema::create('log_aktifitas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('user')
+                  ->onDelete('cascade');
+            $table->unsignedBigInteger('peminjaman_id');
+            $table->foreign('peminjaman_id')
+                  ->references('id')
+                  ->on('peminjaman')
+                  ->onDelete('cascade');
+            $table->unsignedBigInteger('pengembalian_id');
+            $table->foreign('pengembalian_id')
+                  ->references('id')
+                  ->on('pengembalian')
+                  ->onDelete('cascade');
+            $table->string('aktifitas');
+            $table->dateTime('waktu');
             $table->timestamps();
         });
     }

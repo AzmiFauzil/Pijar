@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('alat', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_alat');
-            $table->text('deskripsi');
-            $table->integer('stok');
             $table->unsignedBigInteger('kategori_id');
-            $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
+            $table->foreign('kategori_id')
+                  ->references('id')
+                  ->on('kategori')
+                  ->onDelete('cascade');
+            $table->string('nama_alat');
+            $table->integer('jumlah_alat');
             $table->timestamps();
         });
     }
