@@ -20,6 +20,7 @@ return new class extends Migration
                   ->onDelete('cascade');
             $table->dateTime('tanggal_pengembalian');
             $table->integer('jumlah');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
