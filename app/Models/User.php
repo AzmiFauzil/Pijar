@@ -2,31 +2,34 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-#[Fillable([
-    'name',
-    'NIS',
-    'kelas',
-    'no_telepon',
-    'email',
-    'password'
-])]
-
-#[Hidden([
-    'password',
-    'remember_token'
-])]
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // Sangat penting: Memberitahu Laravel nama tabelnya adalah 'user'
+    protected $table = 'user';
+
+    // Kolom yang boleh diisi (Mass Assignment)
+    protected $fillable = [
+        'nama_user',
+        'NIS',
+        'kelas',
+        'no_telepon',
+        'email',
+        'password',
+    ];
+
+    // Kolom yang disembunyikan
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    // Casting tipe data
     protected function casts(): array
     {
         return [

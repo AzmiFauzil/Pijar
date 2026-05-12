@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -13,18 +14,16 @@ class AuthController extends Controller
 
     public function proses_register(Request $request)
     {
-        // Validasi input
         $request->validate([
             'nama_user' => 'required',
             'NIS' => 'required|unique:user',
             'kelas' => 'required',
             'no_telepon' => 'required',
             'email' => 'required|email|unique:user',
-            'password' => 'required|min:6',
+            'password' => 'required',
         ]);
 
-        // Simpan data user ke database
-        \App\Models\User::create([
+        User::create([
             'nama_user' => $request->nama_user,
             'NIS' => $request->NIS,
             'kelas' => $request->kelas,
@@ -33,7 +32,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
+        return redirect('/login')->with('success', 'Registrasi berhasil.');
     }
 
     public function login()
@@ -43,18 +42,18 @@ class AuthController extends Controller
 
     public function proses_login(Request $request)
     {
-        // Validasi input
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Coba login dengan credentials yang diberikan
         if (auth()->attempt($credentials)) {
             return redirect('/dashboard');
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah.']);
+        return back()->withErrors([
+            'email' => 'Email atau password salah.'
+        ]);
     }
 
     public function dashboard()
@@ -65,6 +64,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return redirect('/login')->with('success', 'Anda telah logout.');
+
+        return redirect('/login');
     }
 }
