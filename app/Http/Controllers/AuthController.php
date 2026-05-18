@@ -29,7 +29,8 @@ class AuthController extends Controller
             'kelas' => $request->kelas,
             'no_telepon' => $request->no_telepon,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => $request->password,
+            'role' => 'user'
         ]);
 
         return redirect('/login')->with('success', 'Registrasi berhasil.');
@@ -48,6 +49,15 @@ class AuthController extends Controller
         ]);
 
         if (auth()->attempt($credentials)) {
+
+            if (auth()->user()->role == 'admin') {
+                return redirect('/dashboard-admin');
+            }
+
+            if (auth()->user()->role == 'petugas') {
+                return redirect('/dashboard-petugas');
+            }
+
             return redirect('/dashboard');
         }
 
