@@ -12,7 +12,8 @@ class AlatController extends Controller
      */
     public function index()
     {
-        //
+        $alat = Alat::with('kategori')->latest()->get();
+        return view('alat.index', compact('alat'));
     }
 
     /**
@@ -20,7 +21,8 @@ class AlatController extends Controller
      */
     public function create()
     {
-        //
+        $kategoriAlat = KategoriAlat::all();
+        return view('alat.create', compact('kategoriAlats'));
     }
 
     /**
@@ -28,7 +30,16 @@ class AlatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kategori_id' => 'required',
+            'nama_alat' => 'required',
+            'jumlah_alat' => 'required'
+        ]);
+
+        Alat::create($request->all());
+
+        return redirect()->route('alat.index')
+            ->with('success', 'Alat berhasil ditambahkan.');
     }
 
     /**
@@ -44,7 +55,8 @@ class AlatController extends Controller
      */
     public function edit(Alat $alat)
     {
-        //
+        $kategoriAlats = KategoriAlat::all();
+        return view('alat.edit', compact('alat', 'kategoriAlat'));
     }
 
     /**
@@ -52,7 +64,16 @@ class AlatController extends Controller
      */
     public function update(Request $request, Alat $alat)
     {
-        //
+        $request->validate([
+            'kategori_id' => 'required',
+            'nama_alat' => 'required',
+            'jumlah_alat' => 'required'
+        ]);
+
+        $alat->update($request->all());
+
+        return redirect()->route('alat.index')
+            ->with('success', 'Alat berhasil diperbarui.');
     }
 
     /**
@@ -60,6 +81,8 @@ class AlatController extends Controller
      */
     public function destroy(Alat $alat)
     {
-        //
+        alat->delete();
+        return redirect()->route('alat.index')
+            ->with('success', 'Alat berhasil dihapus.');
     }
 }
