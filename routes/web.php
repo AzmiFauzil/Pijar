@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AlatController;
+use App\Http\Controllers\KategoriController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,3 +26,5 @@ Route::get('/dashboard', function () {
 });
 
 Route::resource('alat', AlatController::class);
+
+Route::resource('kategori', KategoriController::class);
