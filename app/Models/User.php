@@ -10,10 +10,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // Sangat penting: Memberitahu Laravel nama tabelnya adalah 'user'
     protected $table = 'user';
 
-    // Kolom yang boleh diisi (Mass Assignment)
     protected $fillable = [
         'nama_user',
         'NIS',
@@ -24,13 +22,11 @@ class User extends Authenticatable
         'role'
     ];
 
-    // Kolom yang disembunyikan
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    // Casting tipe data
     protected function casts(): array
     {
         return [
