@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alat;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class AlatController extends Controller
@@ -12,8 +13,8 @@ class AlatController extends Controller
      */
     public function index()
     {
-        $alat = Alat::with('kategori')->latest()->get();
-        return view('alat.index', compact('alat'));
+        $alat = Alat::with('kategori')->get();
+        return view('daftar-alat', compact('alat'));
     }
 
     /**
@@ -21,8 +22,8 @@ class AlatController extends Controller
      */
     public function create()
     {
-        $kategoriAlat = KategoriAlat::all();
-        return view('alat.create', compact('kategoriAlats'));
+        $Alat = alat::all();
+        return view('alat.create', compact('kategoriAlat'));
     }
 
     /**
@@ -55,7 +56,7 @@ class AlatController extends Controller
      */
     public function edit(Alat $alat)
     {
-        $kategoriAlats = KategoriAlat::all();
+        $Alat = alat::all();
         return view('alat.edit', compact('alat', 'kategoriAlat'));
     }
 
@@ -81,7 +82,7 @@ class AlatController extends Controller
      */
     public function destroy(Alat $alat)
     {
-        alat->delete();
+        $alat->delete();
         return redirect()->route('alat.index')
             ->with('success', 'Alat berhasil dihapus.');
     }
