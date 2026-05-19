@@ -3,19 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
 <body>
-    <h2>Login</h2>
 
-    <form action="/login" method="POST">
-        @csrf
+<div class="container">
+    <div class="card">
+        <h1>LOGIN</h1>
 
-        <input type="email" name="email" placeholder="Email"><br><br>
+        @if(session('success'))
+            <div class="alert success">{{ session('success') }}</div>
+        @endif
 
-        <input type="password" name="password" placeholder="Password"><br><br>
+        <form action="/login" method="POST">
+            @csrf
 
-        <button type="submit">Login</button>
-    </form>
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                @error('email')
+                    <small>{{ $message }}</small>
+                @enderror
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password">
+                @error('password')
+                    <small>{{ $message }}</small>
+                @enderror
+            </div>
+
+            <p class="register-text">
+                Don’t have an account?
+                <a href="/register">Register</a>
+            </p>
+
+            <button type="submit" class="btn">LOGIN</button>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
