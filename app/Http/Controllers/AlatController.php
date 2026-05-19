@@ -22,8 +22,8 @@ class AlatController extends Controller
      */
     public function create()
     {
-        $Alat = alat::all();
-        return view('alat.create', compact('kategoriAlat'));
+        $alat = alat::all();
+        return view('tambah-alat', compact('alat'));
     }
 
     /**

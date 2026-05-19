@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Kategori;
+use App\Models\Kategori; // ← Pastikan model yang benar
 
 class KategoriController extends Controller
 {
@@ -12,9 +12,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::latest()->get();
-
-        return view('kategori.index', compact('kategori'));
+        $kategori = Kategori::latest()->paginate(5);
+        return view('kategori', compact('kategori'));
     }
 
     /**
@@ -22,7 +21,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('kategori.create');
+        return view('kategori-tambah');
     }
 
     /**
@@ -31,16 +30,13 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required|string|max:255'], [
-            'nama_kategori.required' => 'Nama kategori wajib diisi'
+            'nama_kategori' => 'required',
         ]);
 
-        Kategori::create([
-            'nama_kategori' => $request->nama_kategori
-        ]);
+        Kategori::create($request->all());
 
-        return redirect('/kategori')
-            ->with('success', 'Kategori berhasil ditambahkan');
+        return redirect()->route('kategori.index') // ← Sesuaikan dengan route名称
+                        ->with('success', 'Kategori berhasil ditambahkan');
     }
 
     /**
@@ -48,9 +44,8 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        $kategori = Kategori::findOrFail($id);
-
-        return view('kategori.edit', compact('kategori'));
+        $kategori = Kategori::findOrFail($id); // ← Ambil data dulu
+        return view('kategori-edit', compact('kategori'));
     }
 
     /**
@@ -59,19 +54,14 @@ class KategoriController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama_kategori' => 'required|string|max:255'
-        ], [
-            'nama_kategori.required' => 'Nama kategori wajib diisi'
+            'nama_kategori' => 'required',
         ]);
 
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Kategori::findOrFail($id); // ← Ambil data dulu
+        $kategori->update($request->all());
 
-        $kategori->update([
-            'nama_kategori' => $request->nama_kategori
-        ]);
-
-        return redirect('/kategori')
-            ->with('success', 'Kategori berhasil diupdate');
+        return redirect()->route('kategori.index') // ← Sesuaikan dengan route名称
+                        ->with('success', 'Kategori berhasil diupdate');
     }
 
     /**
@@ -79,11 +69,10 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        $kategori = Kategori::findOrFail($id);
-
+        $kategori = Kategori::findOrFail($id); // ← Ambil data dulu
         $kategori->delete();
 
-        return redirect('/kategori')
-            ->with('success', 'Kategori berhasil dihapus');
+        return redirect()->route('kategori.index') // ← Sesuaikan dengan route名称
+                        ->with('success', 'Kategori berhasil dihapus');
     }
 }

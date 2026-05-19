@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\KategoriController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,8 +35,9 @@ Route::get('/alat', function () {
 });
 
 
+
 route::get('/alat', [AlatController::class, 'index'])->name('alat.index');
-route::get('/alat/create', [AlatController::class, 'create'])->name('alat.create');
+route::get('/tambah-alat', [AlatController::class, 'create'])->name('tambah-alat');
 route::post('/alat', [AlatController::class, 'store'])->name('alat.store');
 route::get('/alat/{id}/edit', [AlatController::class, 'edit'])->name('alat.edit');
 route::put('/alat/{id}', [AlatController::class, 'update'])->name('alat.update');
