@@ -13,8 +13,8 @@ class AlatController extends Controller
      */
     public function index()
     {
-        $alat = Alat::with('kategori')->latest()->get();
-        return view('alat.index', compact('alat'));
+        $alat = Alat::with('kategori')->get();
+        return view('daftar-alat', compact('alat'));
     }
 
     /**
@@ -22,7 +22,7 @@ class AlatController extends Controller
      */
     public function create()
     {
-        $kategoriAlat = Kategori::all();
+        $Alat = alat::all();
         return view('alat.create', compact('kategoriAlat'));
     }
 
@@ -56,7 +56,7 @@ class AlatController extends Controller
      */
     public function edit(Alat $alat)
     {
-        $kategoriAlat = Kategori::all();
+        $Alat = alat::all();
         return view('alat.edit', compact('alat', 'kategoriAlat'));
     }
 
