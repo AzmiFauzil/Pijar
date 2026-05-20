@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\SiswaController;
 
 
 Route::get('/', function () {
@@ -42,3 +43,7 @@ route::post('/alat', [AlatController::class, 'store'])->name('alat.store');
 route::get('/alat/{id}/edit', [AlatController::class, 'edit'])->name('alat.edit');
 route::put('/alat/{id}', [AlatController::class, 'update'])->name('alat.update');
 route::delete('/alat/{id}', [AlatController::class, 'destroy'])->name('alat.destroy');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('siswa', SiswaController::class);
+});
