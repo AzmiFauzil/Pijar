@@ -2,88 +2,85 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Alat;
 use App\Models\Kategori;
-use Illuminate\Http\Request;
+
 
 class AlatController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan semua data alat
      */
     public function index()
     {
-        $alat = Alat::with('kategori')->get();
-        return view('daftar-alat', compact('alat'));
+        $alat = Alat::with('kategori')->latest()->paginate(5);
+        return view('alat', compact('alat'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Form tambah alat
      */
     public function create()
     {
-        $alat = alat::all();
-        return view('tambah-alat', compact('alat'));
+        $kategori = Kategori::all();
+        return view('alat-tambah', compact('kategori'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan alat baru
      */
     public function store(Request $request)
     {
         $request->validate([
-            'kategori_id' => 'required',
             'nama_alat' => 'required',
-            'jumlah_alat' => 'required'
+            'kategori_id' => 'required|exists:kategori,id',
+            'jumlah_alat' => 'required|integer',
         ]);
 
         Alat::create($request->all());
 
         return redirect()->route('alat.index')
-            ->with('success', 'Alat berhasil ditambahkan.');
+                        ->with('success', 'Alat berhasil ditambahkan');
     }
 
     /**
-     * Display the specified resource.
+     * Form edit alat
      */
-    public function show(Alat $alat)
+    public function edit(string $id)
     {
-        //
+        $alat = Alat::findOrFail($id);
+        $kategori = Kategori::all();
+        return view('alat-edit', compact('alat', 'kategori'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update alat
      */
-    public function edit(Alat $alat)
-    {
-        $Alat = alat::all();
-        return view('alat.edit', compact('alat', 'kategoriAlat'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Alat $alat)
+    public function update(Request $request, string $id)
     {
         $request->validate([
-            'kategori_id' => 'required',
             'nama_alat' => 'required',
-            'jumlah_alat' => 'required'
+            'kategori_id' => 'required|exists:kategori,id',
+            'jumlah_alat' => 'required|integer',
         ]);
 
+        $alat = Alat::findOrFail($id);
         $alat->update($request->all());
 
         return redirect()->route('alat.index')
-            ->with('success', 'Alat berhasil diperbarui.');
+                        ->with('success', 'Alat berhasil diupdate');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus alat
      */
-    public function destroy(Alat $alat)
+    public function destroy(string $id)
     {
+        $alat = Alat::findOrFail($id);
         $alat->delete();
+
         return redirect()->route('alat.index')
-            ->with('success', 'Alat berhasil dihapus.');
+                        ->with('success', 'Alat berhasil dihapus');
     }
 }

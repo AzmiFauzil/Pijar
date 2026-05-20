@@ -13,4 +13,9 @@ class Alat extends Model
         'nama_alat',
         'jumlah_alat'
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
 }
