@@ -1,0 +1,2937 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIJAR</title>
+<!-- icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+
+<!-- font -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- chart -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.48.0/dist/apexcharts.min.js"></script>
+
+<style>
+/* 
+   variabel root
+ */
+:root {
+  --bg:             #e8e4d8;
+  --bg-sidebar:     #2a1a0e;
+  --bg-card:        #ffffff;
+  --color-primary:  #3d2614;
+  --color-blue:     #1e54b7;
+  --color-blue-lt:  #dbeafe;
+  --color-blue-pal: #eff6ff;
+  --color-text:     #1a1a1a;
+  --color-muted:    #6b7280;
+  --color-border:   #e5e7eb;
+  --success:        #16a34a;
+  --success-bg:     #dcfce7;
+  --warning:        #d97706;
+  --warning-bg:     #fef3c7;
+  --danger:         #dc2626;
+  --danger-bg:      #fee2e2;
+  --info:           #2563eb;
+  --info-bg:        #dbeafe;
+  --sidebar-text:   #c9bfb0;
+  --sidebar-muted:  #8a7a6a;
+  --sidebar-w:      224px;
+  --r:              12px;
+  --r-lg:           18px;
+  --shadow:         0 1px 4px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:      0 4px 16px rgba(0,0,0,.09);
+  --shadow-lg:      0 12px 36px rgba(0,0,0,.14);
+  --font:           'Plus Jakarta Sans', sans-serif;
+  --trans:          .2s ease;
+}
+
+
+*,*::before,*::after{
+    box-sizing:border-box;
+    margin:0;
+    padding:0
+}
+
+html,body{
+    height:100%
+}
+
+body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--color-text);
+    font-size:14px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased
+}
+
+img{
+    display:block;
+    max-width:100%
+}
+
+a{
+    text-decoration:none;
+    color:inherit
+}
+
+ul{
+    list-style:none
+}
+
+input,textarea,select,button{
+    font-family:var(--font)
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    background:none
+}
+
+::-webkit-scrollbar{
+    width:4px;
+    height:4px
+}
+
+::-webkit-scrollbar-track{
+    background:transparent
+}
+
+::-webkit-scrollbar-thumb{
+    background:#d1d5db;
+    border-radius:2px
+}
+
+/* 
+   tampilan sistem
+ */
+.screen{
+display:none;
+width:100%;
+min-height:100vh
+}
+
+/* 
+   halaman welkam
+ */
+#screen-splash{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg);
+  position:relative;
+  overflow:hidden
+}
+
+.splash-watermark{
+  position:absolute;
+  font-size:clamp(4rem,10vw,7rem);
+  font-weight:800;
+  color:rgba(212,175,80,.22);
+  pointer-events:none;
+  user-select:none;
+  letter-spacing:-.02em;white-space:nowrap;
+  animation:fadeIn 1.2s ease both
+}
+
+.splash-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+  position:relative;
+  z-index:1;
+  animation:fadeUp .8s ease both
+}
+
+.splash-logo-ring{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#1e54b7,#0ea5e9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:52px;
+  color:white;
+  box-shadow:0 10px 40px rgba(30,84,183,.35);
+  position:relative
+}
+
+.splash-logo-ring::after{
+  content:'';
+  position:absolute;
+  inset:-5px;
+  border-radius:50%;
+  border:3px solid transparent;
+  background:conic-gradient(from 30deg,#0ea5e9 0%,#1e54b7 35%,transparent 36%) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:destination-out;mask-composite:exclude
+}
+
+.splash-brand{
+    text-align:center
+}
+
+.splash-brand h1{
+    font-size:34px;
+    font-weight:800;
+    color:#1e54b7;
+    letter-spacing:.12em
+}
+
+.splash-brand p{
+    font-size:11px;
+    font-weight:600;
+    color:#1e54b7;
+    letter-spacing:.22em;
+    margin-top:3px
+}
+
+.btn-mulai{
+  margin-top:36px;
+  padding:14px 68px;
+  background:var(--color-primary);
+  color:white;
+  border-radius:50px;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.1em;
+  animation:fadeUp .9s ease .25s both;transition:all var(--trans)
+}
+.btn-mulai:hover{
+    background:#2a1a0e;
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(61,38,20,.3)}
+
+/* 
+   layar auth
+ */
+#screen-login,#screen-register{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg)
+}
+
+.auth-card{
+  background:var(--bg-card);
+  border-radius:var(--r-lg);
+  padding:48px 40px;
+  width:min(500px,94vw);
+  box-shadow:var(--shadow-lg);
+  animation:fadeUp .55s ease both
+}
+
+.auth-card h2{
+  text-align:center;
+  font-size:26px;
+  font-weight:800;
+  color:var(--color-text);margin-bottom:34px;letter-spacing:.05em
+}
+
+.auth-field{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  border-bottom:1.5px solid #d1cfc8;
+  padding:11px 4px;
+  margin-bottom:18px;
+  transition:border-color var(--trans)
+}
+
+.auth-field:focus-within{
+    border-bottom-color:var(--color-blue)
+}
+
+.auth-field i{
+    font-size:17px;
+    color:#9ca3af;
+    width:20px;
+    text-align:center
+}
+
+.auth-field input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:14px;
+    color:var(--color-text);
+    background:transparent
+}
+
+.auth-field input::placeholder{
+    color:#b0aaa0
+}
+
+.auth-hint{
+    text-align:center;
+    font-size:13px;
+    color:var(--color-muted);
+    margin-bottom:8px;
+    margin-top:18px
+}
+
+.auth-hint a{
+    color:var(--color-blue);
+    font-weight:600
+}
+
+.auth-hint a:hover{
+    text-decoration:underline
+}
+
+.btn-auth{
+  display:block;
+  width:100%;
+  padding:14px;
+  background:var(--color-primary);
+  color:white;
+  border-radius:50px;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-align:center;
+  margin-top:18px;
+  transition:all var(--trans)
+}
+.btn-auth:hover{
+    background:#2a1a0e;
+    transform:translateY(-1px);
+    box-shadow:0 6px 18px rgba(61,38,20,.28)
+}
+
+/* 
+   layoutnya
+ */
+
+#screen-app{
+    display:none;
+    flex-direction:row;
+    min-height:100vh
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar-w);
+  background:var(--bg-sidebar);
+  display:flex;
+  flex-direction:column;
+  position:fixed;
+  left:0;
+  top:0;
+  height:100vh;
+  z-index:100;
+  flex-shrink:0
+}
+
+.sidebar-logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:22px 18px;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+
+.sidebar-logo-icon{
+  width:44px;
+  height:44px;
+  background:linear-gradient(135deg,#1e54b7,#0ea5e9);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  color:white;
+  flex-shrink:0
+}
+
+.sidebar-logo-text span{
+    display:block
+}
+
+.sidebar-logo-text .s-name{
+    font-size:17px;
+    font-weight:800;
+    color:white;
+    letter-spacing:.1em
+}
+
+.sidebar-logo-text .s-tag{
+    font-size:8px;
+    color:var(--sidebar-muted);
+    letter-spacing:.15em;
+    font-weight:500
+}
+
+.sidebar-nav{
+    flex:1;
+    padding:16px 0
+}
+
+.sidebar-nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  color:var(--sidebar-text);
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  margin:2px 10px;
+  border-radius:8px;
+  transition:all var(--trans)
+}
+
+.sidebar-nav a i{
+    width:20px;
+    text-align:center;
+    font-size:15px
+}
+
+.sidebar-nav a:hover{
+    background:rgba(255,255,255,.08);
+    color:white
+}
+
+.sidebar-nav a.active{
+    background:rgba(255,255,255,.13);
+    color:white;
+    font-weight:600
+}
+
+.sidebar-user{
+  padding:16px 18px;
+  border-top:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:11px
+}
+
+.sidebar-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    overflow:hidden;
+    background:#555;
+    flex-shrink:0
+}
+
+.sidebar-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover
+}
+
+.sidebar-user-info span{
+    display:block
+}
+
+.sidebar-user-info .u-name{
+    font-size:13px;
+    font-weight:600;
+    color:white
+}
+
+.sidebar-user-info .u-class{
+    font-size:11px;
+    color:var(--sidebar-muted)
+}
+
+/* MAIN CONTENT */
+.main-content{
+    margin-left:var(--sidebar-w);
+    flex:1;
+    min-height:100vh;
+    background:var(--bg);
+    overflow-y:auto
+}
+
+.page{
+    display:none;
+    padding:32px
+}
+
+.page.active{
+    display:block
+}
+
+.page-header{
+    margin-bottom:24px
+}
+
+.page-header h1{
+    font-size:28px;
+    font-weight:700;
+    color:#666
+}
+
+.page-header p{
+    font-size:13px;
+    color:var(--color-muted);
+    margin-top:4px
+}
+
+/* 
+   komponen
+ */
+/* Status badges */
+.badge{
+    display:inline-flex;
+    align-items:center;
+    padding:3px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:600
+}
+
+.badge-diproses{
+    background:var(--warning-bg);
+    color:var(--warning)
+}
+
+.badge-disetujui{
+    background:var(--info-bg);
+    color:var(--info)
+}
+
+.badge-selesai{
+    background:var(--success-bg);
+    color:var(--success)
+}
+
+.badge-ditolak{
+    background:var(--danger-bg);
+    color:var(--danger)
+}
+
+.badge-tersedia{
+    background:var(--success-bg);
+    color:var(--success);
+    border:1.5px solid var(--success)
+}
+
+/* Section card */
+.section-card{
+    background:var(--bg-card);
+    border-radius:var(--r);
+    padding:20px;
+    box-shadow:var(--shadow)
+}
+
+.section-card-hd{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px
+}
+
+.section-card-hd h3{
+    font-size:15px;
+    font-weight:700
+}
+
+.btn-outline-blue{font-size:12px;
+    font-weight:600;
+    color:var(--color-blue);
+    padding:5px 12px;
+    border:1.5px solid var(--color-blue);
+    border-radius:7px;
+    transition:all var(--trans)
+}
+
+.btn-outline-blue:hover{
+    background:var(--color-blue);
+    color:white
+}
+
+/* 
+   DASHBOARD
+ */
+.stat-cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:22px
+}
+
+.stat-card{
+    background:var(--bg-card);
+    border-radius:var(--r);
+    padding:18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    gap:14px
+}
+
+.stat-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    flex-shrink:0
+}
+
+.stat-icon.blue{
+    background:#dbeafe;
+    color:#2563eb
+}
+
+.stat-icon.yellow{
+    background:#fef3c7;
+    color:#d97706
+}
+
+.stat-icon.green{
+    background:#dcfce7;
+    color:#16a34a
+}
+.stat-icon.red{
+    background:#fee2e2;
+    color:#dc2626
+}
+.stat-info .s-num{
+    display:block;
+    font-size:23px;
+    font-weight:800;
+    color:var(--color-text)
+}
+.stat-info .s-label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--color-text)
+}
+.stat-info .s-desc{
+    display:block;
+    font-size:11px;
+    color:var(--color-muted);
+    margin-top:2px
+}
+
+.dash-grid{
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:20px
+}
+.dash-left{
+    display:flex;
+    flex-direction:column;
+    gap:20px
+}
+
+.dash-right{
+    display:flex;
+    flex-direction:column;
+    gap:16px
+}
+
+/* Loan items */
+.loan-item{
+    display:flex;
+    align-items:center;
+    gap:12px;padding:10px 0;
+    border-bottom:1px solid var(--color-border)
+}
+.loan-item:last-of-type{
+    border-bottom:none
+}
+.loan-img{
+    width:54px;
+    height:42px;
+    border-radius:6px;
+    overflow:hidden;
+    background:#f5f5f0;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center
+}
+.loan-img img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    padding:4px
+}
+.loan-info{
+    flex:1;
+    min-width:0
+}
+.loan-name{
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis
+}
+.loan-code{
+    font-size:11px;
+    color:var(--color-muted);
+    margin-top:3px;
+    display:flex;
+    align-items:center;
+    gap:6px
+}
+.loan-dates{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    color:var(--color-muted);
+    text-align:center
+}
+.loan-dates span{
+    line-height:1.4
+}
+.loan-dates i{
+    color:#9ca3af;
+    font-size:9px
+}
+.loan-loc{
+    font-size:11px;
+    color:var(--color-muted);
+    text-align:right;
+    min-width:82px;
+    line-height:1.5
+}
+
+.view-all{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--color-blue);
+    font-size:13px;
+    font-weight:600;
+    padding-top:12px;
+    cursor:pointer;
+    border-top:1px solid var(--color-border);
+    margin-top:2px
+}
+.view-all:hover{
+    opacity:.75
+}
+
+/* Popular items */
+.pop-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px
+}
+.pop-item{
+    background:var(--bg-card);
+    border-radius:var(--r);
+    padding:14px 10px;
+    box-shadow:var(--shadow);
+    text-align:center;
+    border:1px solid var(--color-border)
+}
+.pop-item img{
+    width:100%;
+    height:56px;
+    object-fit:contain;
+    margin-bottom:8px
+}
+.pop-name{
+    font-size:11px;
+    font-weight:600;
+    margin-bottom:6px;
+    line-height:1.3
+}
+.pop-rank{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    font-size:10px;
+    font-weight:700;
+    color:white;
+    background:#ea580c;
+    margin-bottom:3px
+}
+.pop-count{
+    font-size:10px;
+    color:var(--color-muted)
+}
+
+/* Chart */
+.chart-hd{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:4px
+}
+.chart-hd h3{
+    font-size:14px;
+    font-weight:700
+}
+.chart-sel{
+    font-size:12px;
+    border:1px solid var(--color-border);
+    border-radius:7px;
+    padding:4px 8px;
+    outline:none;
+    color:var(--color-text);
+    cursor:pointer
+}
+
+#donut-chart-wrap{
+    position:relative
+}
+
+.donut-center-lbl{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    pointer-events:none;
+    line-height:1.3
+}
+.donut-center-lbl .dcl-total{
+    font-size:10px;
+    color:var(--color-muted)
+}
+.donut-center-lbl .dcl-num{
+    font-size:22px;
+    font-weight:800;
+    color:var(--color-text)
+}
+.donut-center-lbl .dcl-sub{
+    font-size:10px;
+    color:var(--color-muted)
+}
+.chart-legend{margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    gap:5px
+}
+.cleg-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:12px
+}
+.cleg-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    flex-shrink:0
+}
+.cleg-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--color-text)
+}
+.cleg-val{
+    font-weight:600;
+    color:var(--color-muted)
+}
+
+/* Pengingat */
+.reminder-card{
+    background:#fffce8;
+    border-radius:var(--r);
+    padding:14px 16px;
+    border:1px solid #fde68a
+}
+.reminder-hd{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:8px;
+    font-size:13px;
+    font-weight:700
+}
+.reminder-hd i{
+    color:#d97706
+}
+.reminder-title{
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:3px
+}
+.reminder-desc{
+    font-size:11px;
+    color:var(--color-muted)
+}
+
+/* Help card */
+.help-card{
+    background:#eff6ff;
+    border:1.5px solid #bfdbfe;
+    border-radius:var(--r);
+    padding:22px;
+    text-align:center
+}
+.help-icon{
+    width:54px;
+    height:54px;
+    background:var(--color-blue);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    color:white;
+    margin:0 auto 12px
+}
+.help-card h4{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:6px
+}
+.help-card p{
+    font-size:12px;
+    color:var(--color-muted);
+    margin-bottom:16px
+}
+.btn-help{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;padding:9px 20px;
+    border:1.5px solid var(--color-blue);
+    border-radius:8px;
+    color:var(--color-blue);
+    font-size:13px;
+    font-weight:600;
+    transition:all var(--trans)
+}
+.btn-help:hover{
+    background:var(--color-blue);
+    color:white
+}
+
+/* ============================================================
+   DAFTAR ALAT
+============================================================ */
+.daftar-hd{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-bottom:24px;
+    gap:16px
+}
+.daftar-hd h1{
+    font-size:28px;
+    font-weight:700;
+    color:#666
+}
+.daftar-hd h2{
+    font-size:18px;
+    font-weight:700;
+    color:var(--color-text);
+    margin-top:4px;
+    padding-bottom:4px;
+    border-bottom:2.5px solid var(--color-text);
+    display:inline-block
+}
+.search-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--bg-card);
+    border:1.5px solid var(--color-border);
+    border-radius:8px;
+    padding:9px 14px;
+    min-width:260px
+}
+.search-bar input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:13px;
+    color:var(--color-text);
+    background:transparent
+}
+.search-bar input::placeholder{
+    color:#b0aaa0
+}
+.search-bar i{
+    color:#9ca3af
+}
+
+.equip-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px
+}
+.equip-card{
+    background:var(--bg-card);
+    border-radius:var(--r);
+    padding:16px;
+    box-shadow:var(--shadow);
+    transition:transform var(--trans),box-shadow var(--trans)
+}
+.equip-card:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-md)
+}
+.equip-img-wrap{
+    position:relative;
+    margin-bottom:12px
+}
+.equip-img{
+    width:100%;
+    height:165px;
+    object-fit:contain;
+    background:#f8f7f4;
+    border-radius:8px
+}
+.equip-heart{
+    position:absolute;
+    top:8px;right:8px;
+    font-size:19px;
+    color:#d1d5db;
+    cursor:pointer;
+    transition:color var(--trans)
+}
+.equip-heart:hover,.equip-heart.liked{
+    color:#ef4444
+}
+.equip-name-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:8px
+}
+.equip-name{
+    font-size:14px;
+    font-weight:700
+}
+.equip-stock{
+    font-size:12px;
+    color:var(--color-muted)
+}
+.equip-specs{
+    display:flex;
+    padding:8px 0;
+    margin-bottom:14px;
+    border-top:1px solid var(--color-border);
+    border-bottom:1px solid var(--color-border)
+}
+.equip-spec{
+    flex:1;
+    text-align:center;
+    padding:4px 0
+}
+.equip-spec+.equip-spec{
+    border-left:1px solid var(--color-border)
+}
+.equip-spec i{
+    display:block;
+    font-size:15px;
+    color:#9ca3af;
+    margin-bottom:4px
+}
+.spec-val{
+    font-size:11px;
+    font-weight:700;
+    line-height:1.2
+}
+.spec-lbl{
+    font-size:10px;
+    color:var(--color-muted);
+    line-height:1.2
+}
+.btn-pinjam{
+    display:block;
+    width:100%;
+    padding:11px;
+    background:var(--color-primary);
+    color:white;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:700;
+    text-align:center;
+    transition:all var(--trans)
+}
+.btn-pinjam:hover{
+    background:#2a1a0e
+}
+
+/* 
+   pijar
+ */
+.pinjam-breadcrumb{
+    font-size:13px;
+    color:var(--color-muted);
+    margin-bottom:20px
+}
+.pinjam-breadcrumb span{
+    color:var(--color-blue);
+    font-weight:600
+}
+.pinjam-grid{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:20px
+}
+.pinjam-info-card{
+    background:var(--bg-card);
+    border-radius:var(--r);
+    padding:20px;
+    box-shadow:var(--shadow)
+}
+.pinjam-info-card h3{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:14px
+}
+.pinjam-info-img{
+    width:100%;
+    height:185px;
+    object-fit:contain;
+    background:#f8f7f4;
+    border-radius:8px;
+    margin-bottom:14px
+}
+.pinjam-info-name{
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:10px
+}
+.pinjam-status-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--color-border)
+}
+.pinjam-stok{
+    font-size:12px;
+    color:var(--color-blue)
+}
+.spec-list{
+    margin-bottom:14px
+}
+.spec-row{
+    display:flex;
+    gap:6px;
+    font-size:12px;
+    margin-bottom:5px;
+    align-items:flex-start
+}
+.spec-row .dot{
+    color:var(--color-blue);
+    flex-shrink:0;
+    margin-top:1px
+}
+.spec-row .sk{
+    color:var(--color-muted);
+    min-width:84px
+}
+.spec-row .sv{
+    color:var(--color-text);
+    font-weight:500
+}
+.pinjam-notice{
+    background:var(--color-blue-pal);
+    border:1px solid #bfdbfe;
+    border-radius:8px;
+    padding:10px 12px;
+    font-size:11px;
+    color:var(--color-blue);
+    display:flex;
+    gap:8px;
+    align-items:flex-start
+}
+.pinjam-notice i{
+    flex-shrink:0;
+    margin-top:1px
+}
+
+.pinjam-form-card{
+    background:var(--bg-card);
+    border-radius:var(--r);
+    padding:20px;
+    box-shadow:var(--shadow)
+}
+.pinjam-form-card h3{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:20px
+}
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:16px
+}
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:0
+}
+.form-group label{
+    font-size:13px;
+    font-weight:600
+}
+.form-ctrl{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:1.5px solid var(--color-border);
+    border-radius:8px;
+    padding:10px 12px;
+    transition:border-color var(--trans)
+}
+.form-ctrl:focus-within{
+    border-color:var(--color-blue)
+}
+.form-ctrl input,.form-ctrl select{
+    flex:1;border:none;
+    outline:none;
+    font-size:13px;
+    color:var(--color-text);
+    background:transparent
+}
+.form-ctrl i{
+    color:#9ca3af;
+    font-size:14px
+}
+.form-textarea{
+    width:100%;
+    border:1.5px solid var(--color-border);
+    border-radius:8px;
+    padding:10px 12px;
+    font-size:13px;
+    color:var(--color-text);
+    resize:vertical;
+    min-height:80px;
+    outline:none;
+    transition:border-color var(--trans)
+}
+.form-textarea:focus{
+    border-color:var(--color-blue)
+}
+.form-char{
+    font-size:11px;
+    color:var(--color-muted);
+    text-align:right;
+    margin-top:4px
+}
+.syarat-box{
+    background:#fffbeb;
+    border:1px solid #fde68a;
+    border-radius:8px;
+    padding:12px;
+    margin-bottom:14px;
+    margin-top:4px
+}
+.syarat-box h4{
+    font-size:13px;
+    font-weight:700;
+    color:var(--warning);
+    margin-bottom:8px
+}
+.syarat-box ul{
+    padding-left:16px
+}
+.syarat-box li{
+    font-size:12px;
+    margin-bottom:3px;
+    list-style:disc;
+    color:var(--warning)
+}
+.syarat-box li span{
+    color:var(--color-text)
+}
+.agree-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:16px;
+    font-size:13px
+}
+.agree-row input[type=checkbox]{
+    width:15px;
+    height:15px;
+    accent-color:var(--color-blue);
+    cursor:pointer
+}
+.form-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px
+}
+.btn-batal{
+    padding:11px;
+    border:1.5px solid var(--color-border);
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--color-text);
+    background:white;
+    transition:all var(--trans)
+}
+.btn-batal:hover{
+    border-color:#9ca3af
+}
+.btn-ajukan{
+    padding:11px;
+    background:var(--color-blue);
+    color:white;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:all var(--trans)
+}
+.btn-ajukan:hover{
+    background:#1d4ed8
+}
+.form-footer{
+    background:var(--color-blue-pal);
+    border:1px solid #bfdbfe;
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:12px;
+    color:var(--color-blue);
+    display:flex;
+    gap:8px;
+    align-items:flex-start;
+    margin-top:16px
+}
+.form-footer i{flex-shrink:0;
+    margin-top:1px
+}
+
+/* 
+   style tampilan riwayat
+ */
+.riwayat-toolbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+    flex-wrap:wrap
+}
+.riwayat-search{
+    flex:1;
+    min-width:200px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--bg-card);
+    border:1.5px solid var(--color-border);
+    border-radius:8px;
+    padding:9px 14px
+}
+.riwayat-search input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:13px;
+    background:transparent
+}
+.riwayat-search i{
+    color:#9ca3af
+}
+.filter-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:9px 14px;
+    background:var(--bg-card);
+    border:1.5px solid var(--color-border);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--color-text);
+    cursor:pointer;
+    transition:border-color var(--trans);
+    white-space:nowrap
+}
+.filter-btn:hover{
+    border-color:#9ca3af
+}
+.filter-btn i{
+    font-size:12px;
+    color:#9ca3af
+}
+
+.riwayat-sec{
+    margin-bottom:24px
+}
+.riwayat-sec-hd{
+    background:var(--bg-card);
+    border-radius:var(--r) var(--r) 0 0;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--color-border)
+}
+.riwayat-sec-title{
+    display:flex;
+    align-items:center;
+    gap:10px
+}
+.riwayat-sec-title h3{
+    font-size:14px;
+    font-weight:700
+}
+.riwayat-sec-title p{
+    font-size:12px;
+    color:var(--color-muted)
+}
+.badge-count{
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600
+}
+.badge-count.active{
+    background:var(--warning-bg);
+    color:var(--warning)
+}
+.badge-count.history{
+    background:var(--success-bg);
+    color:var(--success)
+}
+
+.table-wrap{
+    background:var(--bg-card);
+    border-radius:0 0 var(--r) var(--r);
+    overflow:hidden
+}
+.data-table{
+    width:100%;
+    border-collapse:collapse
+}
+.data-table th{
+    padding:10px 14px;
+    text-align:left;
+    font-size:11px;
+    font-weight:600;
+    color:var(--color-muted);
+    background:#f9f8f6;
+    border-bottom:1px solid var(--color-border);
+    white-space:nowrap
+}
+.data-table td{
+    padding:11px 14px;
+    font-size:12px;
+    border-bottom:1px solid var(--color-border);
+    vertical-align:middle
+}
+.data-table tr:last-child td{
+    border-bottom:none
+}
+.table-alat{
+    display:flex;
+    align-items:center;
+    gap:10px
+}
+.table-alat-img{
+    width:44px;
+    height:34px;
+    border-radius:5px;
+    overflow:hidden;
+    background:#f5f5f0;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center
+}
+.table-alat-img img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    padding:3px
+}
+.table-alat-name{
+    font-weight:600;
+    font-size:12px
+}
+.table-alat-code{
+    font-size:11px;
+    color:var(--color-muted)
+}
+.table-footer{
+    padding:10px 16px;
+    font-size:12px;
+    color:var(--color-muted);
+    background:var(--bg-card);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-top:1px solid var(--color-border)
+}
+.table-pagination{
+    display:flex;
+    gap:4px
+}
+.table-pagination button{
+    width:28px;
+    height:28px;
+    border-radius:6px;
+    border:1.5px solid var(--color-border);
+    background:white;
+    font-size:11px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all var(--trans)
+}
+.table-pagination button:hover{
+    border-color:var(--color-blue);
+    color:var(--color-blue)
+}
+.btn-detail{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 12px;
+    border:1.5px solid var(--color-blue);
+    border-radius:6px;
+    color:var(--color-blue);
+    font-size:11px;
+    font-weight:600;
+    transition:all var(--trans)
+}
+.btn-detail:hover{
+    background:var(--color-blue);
+    color:white
+}
+
+/* 
+   chat
+ */
+.chat-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.52);
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center
+}
+.chat-overlay.open{
+    display:flex
+}
+.chat-modal{
+    background:var(--bg-card);
+    border-radius:var(--r-lg);
+    width:min(480px,95vw);
+    display:flex;
+    flex-direction:column;
+    box-shadow:var(--shadow-lg);
+    animation:fadeUp .3s ease;
+    overflow:hidden
+}
+.chat-hd{
+    background:var(--color-blue);
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between
+}
+.chat-hd-info{
+    display:flex;
+    align-items:center;
+    gap:12px
+}
+.chat-hd-icon{
+    width:38px;
+    height:38px;
+    background:rgba(255,255,255,.2);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    color:white
+}
+.chat-hd-text h4{
+    font-size:14px;
+    font-weight:700;
+    color:white
+}
+.chat-hd-text p{
+    font-size:11px;
+    color:rgba(255,255,255,.7)
+}
+.chat-hd-close{
+    color:rgba(255,255,255,.7);
+    font-size:18px;
+    cursor:pointer;
+    transition:color var(--trans)
+}
+.chat-hd-close:hover{
+    color:white
+}
+.chat-msgs{
+    flex:1;
+    overflow-y:auto;
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    min-height:280px;
+    max-height:360px
+}
+.chat-msg{
+    display:flex;
+    gap:8px;
+    max-width:86%
+}
+.chat-msg.bot{
+    align-self:flex-start
+}
+.chat-msg.user{
+    align-self:flex-end;
+    flex-direction:row-reverse
+}
+.chat-avatar{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:var(--color-blue);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    color:white;
+    flex-shrink:0
+}
+.chat-bubble{
+    padding:10px 14px;
+    border-radius:12px;
+    font-size:13px;
+    line-height:1.55
+}
+.chat-msg.bot .chat-bubble{
+    background:#f3f4f6;
+    color:var(--color-text);
+    border-radius:4px 12px 12px 12px
+}
+.chat-msg.user .chat-bubble{
+    background:var(--color-blue);
+    color:white;
+    border-radius:12px 4px 12px 12px
+}
+
+.chat-typing{
+    display:flex;
+    gap:4px;
+    align-items:center;
+    padding:6px 2px
+}
+.chat-typing span{
+    width:6px;
+    height:6px;
+    background:#9ca3af;
+    border-radius:50%;
+    animation:typingBounce 1.2s infinite
+}
+.chat-typing span:nth-child(2){
+    animation-delay:.2s
+}
+.chat-typing span:nth-child(3){
+    animation-delay:.4s
+}
+.chat-input-wrap{
+    border-top:1px solid var(--color-border);
+    padding:12px 16px;
+    display:flex;
+    gap:10px;
+    align-items:center
+}
+.chat-input{flex:1;
+    border:1.5px solid var(--color-border);
+    border-radius:20px;
+    padding:9px 16px;
+    font-size:13px;
+    outline:none;
+    transition:border-color var(--trans)
+}
+.chat-input:focus{
+    border-color:var(--color-blue)
+}
+.chat-send{
+    width:36px;
+    height:36px;
+    background:var(--color-blue);
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    transition:all var(--trans)
+}
+.chat-send:hover{
+    background:#1d4ed8;
+    transform:scale(1.07)
+}
+
+/* API Key modal */
+.apikey-form{
+    padding:20px;
+    background:#f9f8f6;
+    border-top:1px solid var(--color-border)
+}
+.apikey-form p{
+    font-size:12px;
+    color:var(--color-muted);
+    margin-bottom:10px
+}
+.apikey-row{
+    display:flex;
+    gap:8px
+}
+.apikey-input{
+    flex:1;
+    border:1.5px solid var(--color-border);
+    border-radius:8px;
+    padding:9px 12px;
+    font-size:13px;
+    outline:none;
+    transition:border-color var(--trans)
+}
+.apikey-input:focus{
+    border-color:var(--color-blue)
+}
+.apikey-save{
+    padding:9px 18px;
+    background:var(--color-blue);
+    color:white;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+    transition:all var(--trans);
+    white-space:nowrap
+}
+.apikey-save:hover{
+    background:#1d4ed8
+}
+
+/* 
+   kotak chat
+ */
+.toast{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    background:#1a1a1a;
+    color:white;
+    padding:12px 20px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:9999;
+    box-shadow:var(--shadow-lg);
+    transform:translateY(80px);
+    opacity:0;
+    transition:all .32s ease}
+.toast.show{
+    transform:translateY(0);
+    opacity:1
+}
+.toast.success{
+    background:#16a34a
+}
+.toast.error{
+    background:#dc2626
+}
+
+/* 
+   animasi
+ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes typingBounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}
+</style>
+</head>
+<body>
+
+<!-- 
+     tampilan mulai
+ -->
+<div id="screen-splash" class="screen" style="display:flex">
+  <div class="splash-wrap">
+    <div class="splash-logo-ring">
+      <img src="img/logo.png" alt="">
+    </div>
+    <div class="splash-brand">
+      <h1>PIJAR</h1>
+      <p>PINJAM ALAT BELAJAR</p>
+    </div>
+    <button class="btn-mulai" onclick="showScreen('login')">MULAI</button>
+  </div>
+</div>
+
+<!-- 
+      tampilan login
+ -->
+<div id="screen-login" class="screen">
+  <div class="auth-card">
+    <h2>LOGIN</h2>
+    <div class="auth-field">
+      <i class="fa-regular fa-user"></i>
+      <input type="text" id="login-nama" placeholder="Nama">
+    </div>
+    <div class="auth-field">
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" id="login-pass" placeholder="Password">
+    </div>
+    <div class="auth-hint">
+      Tidak memiliki akun? <br>
+      <a href="#" onclick="showScreen('register');return false">Register</a>
+    </div>
+    <button class="btn-auth" onclick="doLogin()">LOGIN</button>
+  </div>
+</div>
+
+<!-- 
+     tampilan regis
+ -->
+<div id="screen-register" class="screen">
+  <div class="auth-card">
+    <h2>Registrasi</h2>
+    <div class="auth-field"><i class="fa-regular fa-user"></i><input type="text" placeholder="Nama"></div>
+    <div class="auth-field"><i class="fa-regular fa-id-card"></i><input type="text" placeholder="NISN"></div>
+    <div class="auth-field"><i class="fa-solid fa-school"></i><input type="text" placeholder="Kelas"></div>
+    <div class="auth-field"><i class="fa-solid fa-mobile-screen"></i><input type="tel" placeholder="Nomer Handphone"></div>
+    <div class="auth-field"><i class="fa-solid fa-lock"></i><input type="password" placeholder="Password"></div>
+    <div class="auth-field"><i class="fa-regular fa-envelope"></i><input type="email" placeholder="Email"></div>
+    <button class="btn-auth" onclick="doRegister()">REGISTASI</button>
+    <div class="auth-hint" style="margin-top:14px">
+      Sudah punya akun? <a href="#" onclick="showScreen('login');return false">Login</a>
+    </div>
+  </div>
+</div>
+
+<!-- 
+      tampilan utama
+ -->
+<div id="screen-app" class="screen">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><img src="img/logo.png" alt=""></div>
+      <div class="sidebar-logo-text">
+        <span class="s-name">PIJAR</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a class="nav-link active" data-page="dashboard" onclick="showPage('dashboard')"><i class="fa-solid fa-house"></i> Beranda</a></li>
+        <li><a class="nav-link" data-page="daftar-alat" onclick="showPage('daftar-alat')"><i class="fa-solid fa-list"></i> Daftar alat</a></li>
+        <li><a class="nav-link" data-page="riwayat" onclick="showPage('riwayat')"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">
+        <img src="img/laptop,png.png" alt="Avatar">
+      </div>
+      <div class="sidebar-user-info">
+        <span class="u-name">Aulia Rahma</span>
+        <span class="u-class">XI PPLG</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- konten utama -->
+  <main class="main-content">
+
+    <!--  dasboard  -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h1>Dashboard</h1>
+        <p>Pinjam alat sekolah dengan mudah dan cepat</p>
+      </div>
+
+      <!-- Stat cards -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="stat-info">
+            <span class="s-num">2</span>
+            <span class="s-label">Peminjaman Aktif</span>
+            <span class="s-desc">Peminjaman sedang berlangsung</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon yellow"><i class="fa-regular fa-clock"></i></div>
+          <div class="stat-info">
+            <span class="s-num">2</span>
+            <span class="s-label">Peminjaman Diproses</span>
+            <span class="s-desc">Peminjaman sedang berlangsung</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-regular fa-circle-check"></i></div>
+          <div class="stat-info">
+            <span class="s-num">2</span>
+            <span class="s-label">Peminjaman Selesai</span>
+            <span class="s-desc">Peminjaman sedang berlangsung</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fa-regular fa-circle-xmark"></i></div>
+          <div class="stat-info">
+            <span class="s-num">2</span>
+            <span class="s-label">Peminjaman Ditolak</span>
+            <span class="s-desc">Peminjaman sedang berlangsung</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- grid dashboard -->
+      <div class="dash-grid">
+        <div class="dash-left">
+
+          <!-- pinjaman terbaru -->
+          <div class="section-card">
+            <div class="section-card-hd">
+              <h3>Pinjaman Terbaru</h3>
+              <button class="btn-outline-blue" onclick="showPage('riwayat')">Lihat Semua</button>
+            </div>
+            <div id="recent-loans"></div>
+            <div class="view-all" onclick="showPage('riwayat')">
+              <span>Lihat Semua riwayat</span>
+              <i class="fa-solid fa-chevron-right" style="font-size:11px"></i>
+            </div>
+          </div>
+
+          <!-- alat populer -->
+          <div class="section-card">
+            <div class="section-card-hd"><h3>Alat Populer</h3></div>
+            <div class="pop-grid" id="popular-grid"></div>
+          </div>
+
+        </div><!-- dashboard kiri -->
+
+        <div class="dash-right">
+
+          <!-- chart donat-->
+          <div class="section-card">
+            <div class="chart-hd">
+              <h3>Ringkasan peminjaman</h3>
+              <select class="chart-sel">
+                <option>Bulan ini</option>
+                <option>Minggu ini</option>
+              </select>
+            </div>
+            <div id="donut-chart-wrap" style="position:relative">
+              <div id="donut-chart"></div>
+              <div class="donut-center-lbl">
+                <span class="dcl-total">Total</span>
+                <span class="dcl-num">12</span>
+                <span class="dcl-sub">Peminjaman</span>
+              </div>
+            </div>
+            <div class="chart-legend">
+              <div class="cleg-row"><div class="cleg-label"><div class="cleg-dot" style="background:#f59e0b"></div> Diproses</div><div class="cleg-val">1 (8%)</div></div>
+              <div class="cleg-row"><div class="cleg-label"><div class="cleg-dot" style="background:#3b82f6"></div> Disetujui</div><div class="cleg-val">2 (17%)</div></div>
+              <div class="cleg-row"><div class="cleg-label"><div class="cleg-dot" style="background:#22c55e"></div> Selesai</div><div class="cleg-val">8 (67%)</div></div>
+              <div class="cleg-row"><div class="cleg-label"><div class="cleg-dot" style="background:#ef4444"></div> Ditolak</div><div class="cleg-val">1 (8%)</div></div>
+            </div>
+          </div>
+
+          <!-- pengingat -->
+          <div class="reminder-card">
+            <div class="reminder-hd"><i class="fa-solid fa-bell"></i> Pengingat</div>
+            <div class="reminder-title">Kembalikan alat tepat waktu</div>
+            <div class="reminder-desc">Pastikan alat yang dipinjam dikembalikan sesuai dengan tanggal yang ditentukan</div>
+          </div>
+
+          <!-- chat admin -->
+          <div class="help-card">
+            <div class="help-icon"><i class="fa-solid fa-headset"></i></div>
+            <h4>Butuh bantuan?</h4>
+            <p>Jika ada kendala atau pertanyaan, silahkan hubungi admin</p>
+            <button class="btn-help" onclick="openChat()">
+              <i class="fa-solid fa-headset"></i> Hubungi Admin
+            </button>
+          </div>
+
+        </div><!-- dashboard kanan -->
+      </div>
+    </section>
+
+    <!--  tampilan daftar alat  -->
+    <section id="page-daftar-alat" class="page">
+      <div class="daftar-hd">
+        <div>
+          <h1>Daftar Alat</h1>
+          <h2>Proyektor</h2>
+        </div>
+        <div class="search-bar">
+          <input type="text" placeholder="Cari nama alat" oninput="filterEquip(this.value)">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
+      <div class="equip-grid" id="equip-grid"></div>
+    </section>
+
+    <!-- pinjaman  -->
+    <section id="page-pinjam-alat" class="page">
+      <div class="page-header"><h1>Pinjam Alat</h1></div>
+      <div class="pinjam-breadcrumb">Peminjaman &rsaquo; <span>Pinjam Alat</span></div>
+      <div class="pinjam-grid">
+
+        <!-- informasi alat di kiri -->
+        <div class="pinjam-info-card">
+          <h3>Informasi Alat</h3>
+          <img class="pinjam-info-img" id="pinjam-img" src="img/benQMS550.png" alt="Proyektor">
+          <div class="pinjam-info-name" id="pinjam-name">Proyektor BenQ MS550</div>
+          <div class="pinjam-status-row">
+            <span class="badge badge-tersedia"><i class="fa-solid fa-circle-check" style="margin-right:4px;font-size:10px"></i> Tersedia</span>
+            <span class="pinjam-stok">Stok tersedia : <strong>5</strong> Unit</span>
+          </div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:9px">Spesifikasi</div>
+          <div class="spec-list">
+            <div class="spec-row"><span class="dot">●</span><span class="sk">Kecerahan</span><span class="sv">: 3600 ANSI Lumens</span></div>
+            <div class="spec-row"><span class="dot">●</span><span class="sk">Resolusi</span><span class="sv">: SVGA (800×600)</span></div>
+            <div class="spec-row"><span class="dot">●</span><span class="sk">Aspect Ratio</span><span class="sv">: 4:3</span></div>
+            <div class="spec-row"><span class="dot">●</span><span class="sk">Kontras</span><span class="sv">: 20.000 : 1</span></div>
+            <div class="spec-row"><span class="dot">●</span><span class="sk">Warna</span><span class="sv">: 1.07 miliar warna</span></div>
+            <div class="spec-row"><span class="dot">●</span><span class="sk">Berat</span><span class="sv">: ±2.3 kg</span></div>
+          </div>
+          <div class="pinjam-notice">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Pastikan alat dalam kondisi baik saat diterima dan kembalikan sesuai dengan waktu yang ditentukan</span>
+          </div>
+        </div>
+
+        <!-- form peminjaman alat -->
+        <div class="pinjam-form-card">
+          <h3>From Peminjaman</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tanggal Pinjam</label>
+              <div class="form-ctrl"><input type="date" id="tgl-pinjam"><i class="fa-regular fa-calendar"></i></div>
+            </div>
+            <div class="form-group">
+              <label>Tanggal Kembali</label>
+              <div class="form-ctrl"><input type="date" id="tgl-kembali"><i class="fa-regular fa-calendar"></i></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Jam Pinjam</label>
+              <div class="form-ctrl"><input type="time" value="08:00"></div>
+            </div>
+            <div class="form-group">
+              <label>Jam Kembali</label>
+              <div class="form-ctrl"><input type="time" value="16:00"></div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:16px">
+            <label>Julah Unit</label>
+            <div class="form-ctrl">
+              <select><option>1 Unit</option><option>2 Unit</option><option>3 Unit</option><option>4 Unit</option><option>5 Unit</option></select>
+              <i class="fa-solid fa-chevron-down" style="pointer-events:none"></i>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:4px">
+            <label>Keterangan</label>
+            <textarea class="form-textarea" id="ket-textarea" placeholder="Jelaskan keterangan peminjaman alat..." maxlength="200" oninput="document.getElementById('char-cnt').textContent=this.value.length"></textarea>
+            <div class="form-char"><span id="char-cnt">0</span> / 200</div>
+          </div>
+          <div class="syarat-box">
+            <h4>Syarat &amp; Ketentuan</h4>
+            <ul>
+              <li><span>Alat harus digunakan dengan baik dan bertanggung jawab.</span></li>
+              <li><span>Dilarang meminjamkan alat kepada pihak lain.</span></li>
+              <li><span>Alat wajib dikembalikan sesuai dengan tanggal yang ditentukan.</span></li>
+              <li><span>Jika terjadi kerusakan atau kehilangan, peminjam wajib mengganti.</span></li>
+            </ul>
+          </div>
+          <div class="agree-row">
+            <input type="checkbox" id="agree-chk">
+            <label for="agree-chk">Saya setuju dengan syarat dan ketentuan yang berlaku</label>
+          </div>
+          <div class="form-actions">
+            <button class="btn-batal" onclick="showPage('daftar-alat')">Batal</button>
+            <button class="btn-ajukan" onclick="submitPinjam()"><i class="fa-solid fa-paper-plane"></i> Ajukan Peminjaman</button>
+          </div>
+          <div class="form-footer">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Setelah pengajuan dikirim, permintaan akan diproses oleh admin. Kamu akan mendapatkan notifikasi setelah disetujui.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!--  tampilan riwayat  -->
+    <section id="page-riwayat" class="page">
+      <div class="page-header">
+        <h1>Riwayat Peminjaman</h1>
+        <p>Kelola dan liat status semua peminjaman alat yang pernah anda ajukan</p>
+      </div>
+      <div class="riwayat-toolbar">
+        <div class="riwayat-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Cari nama alat, lokasi, keperluan..."></div>
+        <button class="filter-btn"><i class="fa-regular fa-calendar"></i> Semua tanggal <i class="fa-solid fa-chevron-down"></i></button>
+        <button class="filter-btn"><i class="fa-solid fa-sliders"></i> Filter Lainnya <i class="fa-solid fa-chevron-down"></i></button>
+      </div>
+
+      <!-- status pemijaman -->
+      <div class="riwayat-sec">
+        <div class="riwayat-sec-hd">
+          <div class="riwayat-sec-title">
+            <i class="fa-regular fa-clock" style="color:#d97706;font-size:16px"></i>
+            <div>
+              <h3>Peminjaman Aktif</h3>
+              <p>Menampilkan peminjaman yang masih dalam proses atau sedang berlangsung</p>
+            </div>
+          </div>
+          <span class="badge-count active">2 Peminjaman Aktif</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>No</th><th>Alat</th><th>Tanggal Pinjam</th><th>Tanggal Kembali</th><th>Lokasi</th><th>Keperluan</th><th>Status</th><th>Aksi</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><div class="table-alat"><div class="table-alat-img"><img src="img/InFocus IN1124.png" alt="Proyektor"></div><div><div class="table-alat-name">Proyektor BenQ MS550</div><div class="table-alat-code">PA-001</div></div></div></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">09-30</span></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">15-10</span></td>
+                <td>Kelas XI PPLG</td>
+                <td>Kegiatan belajar</td>
+                <td><span class="badge badge-diproses">● Diproses</span></td>
+                <td><button class="btn-detail"><i class="fa-regular fa-eye"></i> Detail</button></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><div class="table-alat"><div class="table-alat-img"><img src="img/Optoma HD146X.png" alt="Proyektor"></div><div><div class="table-alat-name">Proyektor BenQ MS550</div><div class="table-alat-code">PA-001</div></div></div></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">09-30</span></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">15-10</span></td>
+                <td>Lab Komputer</td>
+                <td>Praktikum</td>
+                <td><span class="badge badge-disetujui">● Disetujui</span></td>
+                <td><button class="btn-detail"><i class="fa-regular fa-eye"></i> Detail</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-footer"><span>Menampilkan 1 - 2 dari 2 data</span></div>
+        </div>
+      </div>
+
+      <!-- riwayat pinjaman -->
+      <div class="riwayat-sec">
+        <div class="riwayat-sec-hd">
+          <div class="riwayat-sec-title">
+            <i class="fa-regular fa-rectangle-list" style="color:#2563eb;font-size:16px"></i>
+            <div>
+              <h3>Riwayat Peminjaman (selesai &amp; ditolak)</h3>
+              <p>Menampilkan peminjaman yang sudah selesai atau ditolak</p>
+            </div>
+          </div>
+          <span class="badge-count history">10 Riwayat</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>No</th><th>Alat</th><th>Tanggal Pinjam</th><th>Tanggal Kembali</th><th>Lokasi</th><th>Keperluan</th><th>Status</th><th>Aksi</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><div class="table-alat"><div class="table-alat-img"><img src="img/benQMS550.png" alt="Proyektor"></div><div><div class="table-alat-name">Proyektor BenQ MS550</div><div class="table-alat-code">PA-001</div></div></div></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">09-30</span></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">15-10</span></td>
+                <td>Kelas XI PPLG</td>
+                <td>Kegiatan belajar</td>
+                <td><span class="badge badge-selesai">● Selesai</span></td>
+                <td><button class="btn-detail"><i class="fa-regular fa-eye"></i> Detail</button></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><div class="table-alat"><div class="table-alat-img"><img src="img/Panasonic PT-LB425.png" alt="Proyektor"></div><div><div class="table-alat-name">Proyektor BenQ MS550</div><div class="table-alat-code">PA-001</div></div></div></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">09-30</span></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">15-10</span></td>
+                <td>Lab Komputer</td>
+                <td>Praktikum</td>
+                <td><span class="badge badge-selesai">● Selesai</span></td>
+                <td><button class="btn-detail"><i class="fa-regular fa-eye"></i> Detail</button></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><div class="table-alat"><div class="table-alat-img"><img src="img/InFocus IN1124.png" alt="Proyektor"></div><div><div class="table-alat-name">Proyektor BenQ MS550</div><div class="table-alat-code">PA-001</div></div></div></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">09-30</span></td>
+                <td>03 Mei 2026<br><span style="color:var(--color-muted)">15-10</span></td>
+                <td>Lab Komputer</td>
+                <td>Praktikum</td>
+                <td><span class="badge badge-ditolak">● Ditolak</span></td>
+                <td><button class="btn-detail"><i class="fa-regular fa-eye"></i> Detail</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-footer">
+            <span>Menampilkan 1 - 3 dari 7 data</span>
+            <div class="table-pagination">
+              <button><i class="fa-solid fa-chevron-left"></i></button>
+              <button><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- 
+     Chat Hubungi Admin
+ -->
+<div class="chat-overlay" id="chat-overlay" onclick="overlayClickOutside(event)">
+  <div class="chat-modal" onclick="event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="chat-hd">
+      <div class="chat-hd-info">
+        <div class="chat-hd-avatar">
+          <img src="https://ui-avatars.com/api/?name=Admin+PIJAR&background=5c3d1e&color=fff&size=38" alt="Admin">
+          <span class="chat-online-dot" id="online-dot"></span>
+        </div>
+        <div class="chat-hd-text">
+          <h4>Admin PIJAR</h4>
+          <p id="admin-status-text">Menunggu koneksi...</p>
+        </div>
+      </div>
+      <div class="chat-hd-actions">
+        <button class="chat-hd-btn" onclick="clearChat()" title="Hapus riwayat chat">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+        <button class="chat-hd-btn" onclick="closeChat()" title="Tutup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Status bar koneksi -->
+    <div class="chat-status-bar" id="chat-status-bar">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span id="chat-status-text">Menghubungkan ke server...</span>
+    </div>
+
+    <!-- Area pesan -->
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="chat-date-sep">Hari ini</div>
+      <!-- Pesan sambutan admin -->
+      <div class="chat-msg admin" id="welcome-msg">
+        <div class="chat-msg-avatar">
+          <img src="https://ui-avatars.com/api/?name=Admin+PIJAR&background=5c3d1e&color=fff&size=28" alt="Admin">
+        </div>
+        <div class="chat-msg-body">
+          <span class="chat-sender">Admin PIJAR</span>
+          <div class="chat-bubble">Halo! Selamat datang di PIJAR 👋<br>Ada yang bisa kami bantu terkait peminjaman alat?</div>
+          <span class="chat-meta" id="welcome-time">Sekarang</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- balasan cepat -->
+    <div class="chat-input-area">
+      <div class="chat-quick-replies" id="quick-replies">
+        <button class="quick-reply" onclick="sendQuickReply('Bagaimana cara meminjam alat?')">Cara pinjam alat</button>
+        <button class="quick-reply" onclick="sendQuickReply('Cek status peminjaman saya')">Cek status</button>
+        <button class="quick-reply" onclick="sendQuickReply('Syarat & ketentuan peminjaman')">Syarat & ketentuan</button>
+        <button class="quick-reply" onclick="sendQuickReply('Jam operasional PIJAR')">Jam operasional</button>
+      </div>
+      <div class="chat-input-row">
+        <textarea
+          class="chat-input"
+          id="chat-input"
+          placeholder="Ketik pesan ke admin..."
+          rows="1"
+          onkeydown="chatKeydown(event)"
+          oninput="autoResizeInput(this)"
+        ></textarea>
+        <button class="chat-send" id="chat-send-btn" onclick="sendUserMessage()" title="Kirim">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+<!-- 
+     js
+ -->
+<script>
+/* 
+   navigasi antar tampilan
+ */
+function showScreen(id) {
+  ['splash','login','register','app'].forEach(s => {
+    const el = document.getElementById('screen-' + s);
+    el.style.display = 'none';
+  });
+  const el = document.getElementById('screen-' + id);
+  if (!el) return;
+  el.style.display = (id === 'app') ? 'flex' : 'flex';
+  if (id === 'app') {
+    renderAll();
+    setTimeout(initChart, 150);
+  }
+}
+
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const p = document.getElementById('page-' + id);
+  if (p) p.classList.add('active');
+
+  const pageToNav = { dashboard: 0, 'daftar-alat': 1, 'pinjam-alat': 1, riwayat: 2 };
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach(l => l.classList.remove('active'));
+  const idx = pageToNav[id];
+  if (links[idx]) links[idx].classList.add('active');
+}
+
+/* 
+   autentifikasi
+ */
+function doLogin() {
+  const nama = document.getElementById('login-nama').value.trim();
+  const pass = document.getElementById('login-pass').value.trim();
+  if (!nama || !pass) { toast('Mohon lengkapi semua field!', 'error'); return; }
+  toast('Login berhasil! Selamat datang, ' + nama, 'success');
+  setTimeout(() => showScreen('app'), 700);
+}
+function doRegister() {
+  toast('Registrasi berhasil! Silakan login.', 'success');
+  setTimeout(() => showScreen('login'), 800);
+}
+
+/* 
+   data api
+ */
+const EQUIP_DATA = [
+  { id:1, name:'InFocus IN1124',     stock:5, lumens:'3200', res:'XGA (1024x768)',  tech:'DLP',  img:'img/InFocus IN1124.png' },
+  { id:2, name:'BenQ MS550',         stock:5, lumens:'3600', res:'SVGA (800x600)',  tech:'DLP',  img:'img/InFocus IN1124.png' },
+  { id:3, name:'Optoma HD146X',      stock:5, lumens:'3200', res:'XGA (1024x768)',  tech:'DLP',  img:'img/InFocus IN1124.png' },
+  { id:4, name:'ViewSonic PA503X',   stock:5, lumens:'3500', res:'WXGA (1024x768)', tech:'DLP',  img:'img/InFocus IN1124.png' },
+  { id:5, name:'Panasonic PT-LB425', stock:5, lumens:'4000', res:'WXGA (1280x800)', tech:'LCD',  img:'img/InFocus IN1124.png' },
+  { id:6, name:'InFocus IN1124',     stock:5, lumens:'3100', res:'XGA (1024x768)',  tech:'3LCD', img:'img/InFocus IN1124.png' },
+];
+const RECENT_LOANS = [
+  { name:'Proyektor BenQ MS550', code:'PA-001', status:'diproses',  tgl:'03 Mei 2026 09:30', loc:'Ruang Kelas XI PPLG' },
+  { name:'Proyektor BenQ MS550', code:'PA-001', status:'disetujui', tgl:'03 Mei 2026 09:30', loc:'Ruang Kelas XI PPLG' },
+  { name:'Proyektor BenQ MS550', code:'PA-001', status:'selesai',   tgl:'03 Mei 2026 09:30', loc:'Ruang Kelas XI PPLG' },
+  { name:'Proyektor BenQ MS550', code:'PA-001', status:'ditolak',   tgl:'03 Mei 2026 09:30', loc:'Ruang Kelas XI PPLG' },
+];
+const POPULAR_DATA = [
+  { name:'Proyektor BenQ MS550', count:12, rank:1,  rankColor:'#ea580c' },
+  { name:'Proyektor BenQ MS550', count:8,  rank:2,  rankColor:'#6b7280' },
+  { name:'Proyektor BenQ MS550', count:6,  rank:3,  rankColor:'#92400e' },
+  { name:'Proyektor BenQ MS550', count:5,  rank:4,  rankColor:'#374151' },
+];
+
+const BADGE_MAP = {
+  diproses:  'badge-diproses',
+  disetujui: 'badge-disetujui',
+  selesai:   'badge-selesai',
+  ditolak:   'badge-ditolak',
+};
+const BADGE_LABEL = { diproses:'Diproses', disetujui:'Disetujui', selesai:'Selesai', ditolak:'Ditolak' };
+
+/* 
+   render functions
+ */
+function renderAll() {
+  renderEquipments(EQUIP_DATA);
+  renderRecentLoans();
+  renderPopular();
+}
+
+function renderEquipments(data) {
+  const grid = document.getElementById('equip-grid');
+  if (!grid) return;
+  if (!data.length) { grid.innerHTML = '<p style="color:var(--color-muted);text-align:center;padding:40px 0">Tidak ada alat ditemukan.</p>'; return; }
+  grid.innerHTML = data.map(eq => {
+    const resParts = eq.res.match(/^(\S+)\s*(\(.*\))?$/);
+    const resTop = resParts ? resParts[1] : eq.res;
+    const resBot = resParts && resParts[2] ? resParts[2] : '';
+    return `
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <img class="equip-img" src="${eq.img}" alt="${eq.name}" onerror="this.src='img/Panasonic PT-LB425.png'">
+          <i class="fa-regular fa-heart equip-heart" onclick="toggleHeart(this)"></i>
+        </div>
+        <div class="equip-name-row">
+          <span class="equip-name">${eq.name}</span>
+          <span class="equip-stock">Stock : ${eq.stock}</span>
+        </div>
+        <div class="equip-specs">
+          <div class="equip-spec">
+            <i class="fa-regular fa-sun"></i>
+            <div class="spec-val">${eq.lumens}</div>
+            <div class="spec-lbl">Lumens</div>
+          </div>
+          <div class="equip-spec">
+            <i class="fa-regular fa-desktop"></i>
+            <div class="spec-val">${resTop}</div>
+            <div class="spec-lbl">${resBot}</div>
+          </div>
+          <div class="equip-spec">
+            <i class="fa-solid fa-microchip"></i>
+            <div class="spec-val">${eq.tech}</div>
+            <div class="spec-lbl">Technology</div>
+          </div>
+        </div>
+        <button class="btn-pinjam" onclick="openPinjam(${eq.id})">Pinjam</button>
+      </div>`;
+  }).join('');
+}
+
+function filterEquip(q) {
+  const filtered = EQUIP_DATA.filter(e => e.name.toLowerCase().includes(q.toLowerCase()));
+  renderEquipments(filtered);
+}
+
+function renderRecentLoans() {
+  const el = document.getElementById('recent-loans');
+  if (!el) return;
+  el.innerHTML = RECENT_LOANS.map(l => `
+    <div class="loan-item">
+      <div class="loan-img"><img src="img/Panasonic PT-LB425.png" alt="${l.name}"></div>
+      <div class="loan-info">
+        <div class="loan-name">${l.name}</div>
+        <div class="loan-code">${l.code}&nbsp;<span class="badge ${BADGE_MAP[l.status]}">${BADGE_LABEL[l.status]}</span></div>
+      </div>
+      <div class="loan-dates">
+        <span>${l.tgl.replace(' ','\n')}</span>
+        <i class="fa-solid fa-arrow-right"></i>
+        <span>${l.tgl.replace(' ','\n')}</span>
+      </div>
+      <div class="loan-loc">${l.loc.replace(' ','\n')}</div>
+    </div>`).join('');
+}
+
+function renderPopular() {
+  const el = document.getElementById('popular-grid');
+  if (!el) return;
+  el.innerHTML = POPULAR_DATA.map(p => `
+    <div class="pop-item">
+      <img src="img/Panasonic PT-LB425.png" alt="${p.name}">
+      <div class="pop-name">${p.name}</div>
+      <span class="pop-rank" style="background:${p.rankColor}">${p.rank}</span>
+      <div class="pop-count">${p.count} kali dipinjam</div>
+    </div>`).join('');
+}
+
+function toggleHeart(el) {
+  el.classList.toggle('liked');
+  if (el.classList.contains('liked')) {
+    el.classList.remove('fa-regular'); el.classList.add('fa-solid');
+  } else {
+    el.classList.remove('fa-solid'); el.classList.add('fa-regular');
+  }
+}
+
+/* 
+    pijar
+ */
+function openPinjam(id) {
+  const eq = EQUIP_DATA.find(e => e.id === id);
+  if (eq) {
+    document.getElementById('pinjam-img').src = eq.img;
+    document.getElementById('pinjam-name').textContent = 'Proyektor ' + eq.name;
+  }
+  showPage('pinjam-alat');
+}
+
+function submitPinjam() {
+  const agree = document.getElementById('agree-chk');
+  if (!agree.checked) { toast('Harap setujui syarat dan ketentuan!', 'error'); return; }
+  const d1 = document.getElementById('tgl-pinjam').value;
+  const d2 = document.getElementById('tgl-kembali').value;
+  if (!d1 || !d2) { toast('Tanggal pinjam dan kembali harus diisi!', 'error'); return; }
+  toast('Pengajuan peminjaman berhasil dikirim! 🎉', 'success');
+  setTimeout(() => { agree.checked = false; showPage('riwayat'); }, 1000);
+}
+
+/* 
+    chart donat
+ */
+let chartInited = false;
+function initChart() {
+  if (chartInited || typeof ApexCharts === 'undefined') return;
+  chartInited = true;
+  const opts = {
+    series: [1, 2, 8, 1],
+    chart: { type:'donut', height:180, toolbar:{show:false}, sparkline:{enabled:false} },
+    labels: ['Diproses','Disetujui','Selesai','Ditolak'],
+    colors: ['#f59e0b','#3b82f6','#22c55e','#ef4444'],
+    legend: { show:false },
+    plotOptions: {
+      pie: {
+        donut: {
+          size:'68%',
+          labels: { show:false }
+        },
+        expandOnClick: false
+      }
+    },
+    dataLabels: { enabled:false },
+    stroke: { width:2, colors:['#e8e4d8'] },
+    states: { hover:{ filter:{ type:'none' } }, active:{ filter:{ type:'none' } } },
+    tooltip: {
+      y: { formatter: (v) => v + ' Peminjaman' }
+    }
+  };
+  const chart = new ApexCharts(document.getElementById('donut-chart'), opts);
+  chart.render();
+}
+
+/* 
+   notif toast 
+ */
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast ' + type + ' show';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+/* =========================================
+   CHAT ADMIN — Real-time ke Server
+   Mendukung: WebSocket / Long Polling / REST
+========================================= */
+
+/* ── Konfigurasi ──────────────────────────
+   Ganti BASE_URL dengan URL backend nyata.
+   Mode: 'websocket' | 'polling' | 'rest'
+──────────────────────────────────────────── */
+const CHAT_CONFIG = {
+  mode:        'polling',          
+  baseUrl:     '/api/chat',        
+  wsUrl:       'wss://yourserver/ws/chat',  
+  pollInterval: 3000,              
+  userId:      'user_aulia_001',  
+  userName:    'Aulia Rahma',
+  userClass:   'XI PPLG',
+};
+
+/* ── State ─────────────────────────────── */
+const CHAT_STATE = {
+  open:        false,
+  connected:   false,
+  ws:          null,
+  pollTimer:   null,
+  lastMsgId:   0,
+  unread:      0,
+  messages:    [],               // [{id, role, text, time, read}]
+  roomId:      null,
+  adminOnline: false,
+};
+
+/* ── Waktu helper ─────────────────────── */
+function chatTime() {
+  return new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+}
+
+/* ── Buka / tutup modal ────────────────── */
+function openChat() {
+  document.getElementById('chat-overlay').classList.add('open');
+  document.getElementById('chat-fab').style.display = 'none';
+  CHAT_STATE.open = true;
+  CHAT_STATE.unread = 0;
+  document.getElementById('fab-badge').classList.add('hidden');
+  document.getElementById('welcome-time').textContent = chatTime();
+  if (!CHAT_STATE.connected) chatConnect();
+  setTimeout(() => document.getElementById('chat-input').focus(), 200);
+}
+
+function closeChat() {
+  document.getElementById('chat-overlay').classList.remove('open');
+  document.getElementById('chat-fab').style.display = 'flex';
+  CHAT_STATE.open = false;
+}
+
+function overlayClickOutside(e) {
+  if (e.target === document.getElementById('chat-overlay')) closeChat();
+}
+
+/*  resize  */
+function autoResizeInput(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 90) + 'px';
+}
+
+function chatKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendUserMessage();
+  }
+}
+
+/* chat scroll*/
+function chatScrollBottom() {
+  const msgs = document.getElementById('chat-msgs');
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+/* render chat*/
+function renderMessage({ role, text, time, read = false }) {
+  const wrap = document.getElementById('chat-msgs');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + (role === 'admin' ? 'admin' : 'user');
+
+  if (role === 'admin') {
+    div.innerHTML = `
+      <div class="chat-msg-avatar">
+        <img src="https://ui-avatars.com/api/?name=Admin+PIJAR&background=5c3d1e&color=fff&size=28" alt="Admin">
+      </div>
+      <div class="chat-msg-body">
+        <span class="chat-sender">Admin PIJAR</span>
+        <div class="chat-bubble">${text.replace(/\n/g,'<br>')}</div>
+        <span class="chat-meta">${time}</span>
+      </div>`;
+  } else {
+    const initials = CHAT_CONFIG.userName.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    div.innerHTML = `
+      <div class="chat-msg-body">
+        <div class="chat-bubble">${text.replace(/\n/g,'<br>')}</div>
+        <span class="chat-meta">
+          ${time}
+          ${read ? '<i class="fa-solid fa-check-double read-icon"></i>' : '<i class="fa-solid fa-check" style="color:#9ca3af"></i>'}
+        </span>
+      </div>
+      <div class="chat-msg-avatar user-av">${initials}</div>`;
+  }
+
+  wrap.appendChild(div);
+  chatScrollBottom();
+  return div;
+}
+
+/* indikator admin */
+function showAdminTyping() {
+  removeAdminTyping();
+  const wrap = document.getElementById('chat-msgs');
+  const div = document.createElement('div');
+  div.id = 'typing-indicator';
+  div.className = 'chat-typing-row';
+  div.innerHTML = `
+    <img src="https://ui-avatars.com/api/?name=Admin+PIJAR&background=5c3d1e&color=fff&size=26" alt="">
+    <div class="chat-typing-bubble"><span></span><span></span><span></span></div>`;
+  wrap.appendChild(div);
+  chatScrollBottom();
+}
+function removeAdminTyping() {
+  const el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+/* status bar apdet */
+function setConnectedStatus(online) {
+  CHAT_STATE.connected = online;
+  CHAT_STATE.adminOnline = online;
+  const bar  = document.getElementById('chat-status-bar');
+  const text = document.getElementById('chat-status-text');
+  const dot  = document.getElementById('online-dot');
+  const adm  = document.getElementById('admin-status-text');
+  if (online) {
+    bar.className  = 'chat-status-bar connected';
+    text.textContent = 'Terhubung — Admin siap membalas';
+    dot.style.background = '#22c55e';
+    adm.textContent = 'Online — siap membalas';
+  } else {
+    bar.className  = 'chat-status-bar';
+    text.textContent = 'Terputus — mencoba menghubungkan ulang...';
+    dot.style.background = '#9ca3af';
+    adm.textContent = 'Offline';
+  }
+}
+
+/* user kirim pesan */
+function sendUserMessage() {
+  const input = document.getElementById('chat-input');
+  const text  = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  input.style.height = 'auto';
+
+  const time = chatTime();
+  const msg  = { role: 'user', text, time, read: false };
+  CHAT_STATE.messages.push(msg);
+  renderMessage(msg);
+
+
+  document.getElementById('quick-replies').style.display = 'none';
+
+  chatSendToServer(text);
+}
+
+function sendQuickReply(text) {
+  document.getElementById('chat-input').value = text;
+  sendUserMessage();
+}
+
+/*  Hapus history chat  */
+function clearChat() {
+  if (!confirm('Hapus semua riwayat chat?')) return;
+  CHAT_STATE.messages = [];
+  const wrap = document.getElementById('chat-msgs');
+  // simpan hanya pemisah tanggal & pesan welcome
+  const welcome = document.getElementById('welcome-msg');
+  const sep = wrap.querySelector('.chat-date-sep');
+  wrap.innerHTML = '';
+  if (sep) wrap.appendChild(sep);
+  if (welcome) wrap.appendChild(welcome);
+  document.getElementById('quick-replies').style.display = 'flex';
+}
+
+/* 
+   connect chat ke server
+   ── sesuaikan mode nya ya backend ──
+ */
+
+function chatConnect() {
+  if (CHAT_CONFIG.mode === 'websocket') {
+    chatConnectWS();
+  } else if (CHAT_CONFIG.mode === 'polling') {
+    chatConnectPolling();
+  } else {
+    chatConnectREST();
+  }
+}
+
+/* ── MODE 1: WebSocket ──────────────────── */
+function chatConnectWS() {
+  try {
+    CHAT_STATE.ws = new WebSocket(CHAT_CONFIG.wsUrl);
+
+    CHAT_STATE.ws.onopen = () => {
+      setConnectedStatus(true);
+      // Kirim identitas saat koneksi
+      CHAT_STATE.ws.send(JSON.stringify({
+        type:      'join',
+        userId:    CHAT_CONFIG.userId,
+        userName:  CHAT_CONFIG.userName,
+        userClass: CHAT_CONFIG.userClass,
+      }));
+    };
+
+    CHAT_STATE.ws.onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      handleServerMessage(data);
+    };
+
+    CHAT_STATE.ws.onerror = () => setConnectedStatus(false);
+
+    CHAT_STATE.ws.onclose = () => {
+      setConnectedStatus(false);
+      // Reconnect otomatis setelah 5 detik
+      setTimeout(chatConnectWS, 5000);
+    };
+  } catch(err) {
+    console.warn('[CHAT WS] Gagal:', err);
+    setConnectedStatus(false);
+  }
+}
+
+function chatSendToServer(text) {
+  if (CHAT_CONFIG.mode === 'websocket' && CHAT_STATE.ws?.readyState === WebSocket.OPEN) {
+    CHAT_STATE.ws.send(JSON.stringify({
+      type:    'message',
+      userId:  CHAT_CONFIG.userId,
+      roomId:  CHAT_STATE.roomId,
+      text,
+    }));
+  } else if (CHAT_CONFIG.mode === 'polling' || CHAT_CONFIG.mode === 'rest') {
+    chatPOST(text);
+  }
+}
+
+/* ── MODE 2: Long Polling ───────────────── */
+function chatConnectPolling() {
+  // Buat room chat terlebih dahulu
+  chatCreateRoom().then(() => {
+    setConnectedStatus(true);
+    chatPollMessages();
+  }).catch(() => {
+    setConnectedStatus(false);
+    setTimeout(chatConnectPolling, 5000);
+  });
+}
+
+async function chatCreateRoom() {
+  /*
+    POST /api/chat/rooms
+    Body: { userId, userName, userClass }
+    Response: { roomId }
+  */
+  const res = await fetch(CHAT_CONFIG.baseUrl + '/rooms', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({
+      userId:    CHAT_CONFIG.userId,
+      userName:  CHAT_CONFIG.userName,
+      userClass: CHAT_CONFIG.userClass,
+    }),
+  });
+  const data = await res.json();
+  CHAT_STATE.roomId = data.roomId;
+}
+
+async function chatPollMessages() {
+  try {
+    /*
+      GET /api/chat/rooms/:roomId/messages?after=:lastMsgId
+      Response: { messages: [{id, role, text, time}], adminOnline: bool }
+    */
+    const res  = await fetch(`${CHAT_CONFIG.baseUrl}/rooms/${CHAT_STATE.roomId}/messages?after=${CHAT_STATE.lastMsgId}`);
+    const data = await res.json();
+
+    if (data.adminOnline !== undefined) setConnectedStatus(data.adminOnline);
+
+    (data.messages || []).forEach(msg => {
+      if (msg.id > CHAT_STATE.lastMsgId) {
+        CHAT_STATE.lastMsgId = msg.id;
+        if (msg.role === 'admin') {
+          removeAdminTyping();
+          renderMessage({ role:'admin', text: msg.text, time: msg.time });
+          if (!CHAT_STATE.open) {
+            CHAT_STATE.unread++;
+            const badge = document.getElementById('fab-badge');
+            badge.textContent = CHAT_STATE.unread;
+            badge.classList.remove('hidden');
+          }
+        }
+        if (msg.role === 'typing') showAdminTyping();
+      }
+    });
+  } catch(err) {
+    setConnectedStatus(false);
+  }
+
+  // Lanjutkan polling
+  CHAT_STATE.pollTimer = setTimeout(chatPollMessages, CHAT_CONFIG.pollInterval);
+}
+
+async function chatPOST(text) {
+  try {
+    /*
+      POST /api/chat/rooms/:roomId/messages
+      Body: { userId, text }
+      Response: { messageId, status: 'sent' }
+    */
+    await fetch(`${CHAT_CONFIG.baseUrl}/rooms/${CHAT_STATE.roomId}/messages`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ userId: CHAT_CONFIG.userId, text }),
+    });
+  } catch(err) {
+    toast('Gagal mengirim pesan. Cek koneksi internet.', 'error');
+  }
+}
+
+
+/*  Handler pesan dari server  */
+function handleServerMessage(data) {
+  switch (data.type) {
+    case 'message':
+      removeAdminTyping();
+      renderMessage({ role:'admin', text: data.text, time: chatTime() });
+      if (!CHAT_STATE.open) {
+        CHAT_STATE.unread++;
+        const b = document.getElementById('fab-badge');
+        b.textContent = CHAT_STATE.unread;
+        b.classList.remove('hidden');
+      }
+      break;
+    case 'typing':
+      showAdminTyping();
+      break;
+    case 'stop_typing':
+      removeAdminTyping();
+      break;
+    case 'read':
+      // Admin sudah baca — update tanda centang biru
+      document.querySelectorAll('.chat-msg.user .chat-meta .fa-check')
+        .forEach(i => {
+          i.className = 'fa-solid fa-check-double read-icon';
+        });
+      break;
+    case 'admin_status':
+      setConnectedStatus(data.online);
+      break;
+  }
+}
+
+/*  Init saat halaman app terbuka  */
+function initChat() {
+  document.getElementById('chat-fab').style.display = 'flex';
+  document.getElementById('welcome-time').textContent = chatTime();
+}
+/* =========================================
+   MOCK API CLASS (REST Integration Pattern)
+========================================= */
+class PijarAPI {
+  constructor(baseUrl = '/api') { this.base = baseUrl; }
+
+  async getEquipments(params = {}) {
+    // Simulate: GET /api/equipment?category=proyektor
+    return { success: true, data: EQUIP_DATA, total: EQUIP_DATA.length };
+  }
+  async getLoans(userId, params = {}) {
+    // Simulate: GET /api/loans?user_id=xxx&status=all
+    return { success: true, data: RECENT_LOANS, total: RECENT_LOANS.length };
+  }
+  async submitLoan(payload) {
+    // Simulate: POST /api/loans
+    return { success: true, message: 'Pengajuan berhasil', loan_id: 'LN-' + Date.now() };
+  }
+  async getLoanDetail(loanId) {
+    // Simulate: GET /api/loans/:id
+    return { success: true, data: RECENT_LOANS[0] };
+  }
+  async getDashboardStats(userId) {
+    // Simulate: GET /api/dashboard?user_id=xxx
+    return { success: true, data: { aktif:2, diproses:2, selesai:2, ditolak:2, total:12 } };
+  }
+}
+const API = new PijarAPI();
+
+/* 
+   INIT
+    */
+document.addEventListener('DOMContentLoaded', () => {
+  // Set today's date defaults
+  const today = new Date().toISOString().split('T')[0];
+  const tp = document.getElementById('tgl-pinjam');
+  const tk = document.getElementById('tgl-kembali');
+  if (tp) tp.value = today;
+  if (tk) {
+    const tom = new Date(); tom.setDate(tom.getDate()+1);
+    tk.value = tom.toISOString().split('T')[0];
+  }
+});
+</script>
+</body>
+</html>
