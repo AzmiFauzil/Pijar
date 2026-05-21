@@ -8,7 +8,7 @@ use App\Http\Controllers\SiswaController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/register', [AuthController::class, 'register']);
@@ -31,12 +31,6 @@ Route::get('/dashboard-petugas', function () {
 Route::resource('alat', AlatController::class);
 Route::resource('kategori', KategoriController::class);
 
-Route::get('/alat', function () {
-    return view('daftar-alat');
-});
-
-
-
 route::get('/alat', [AlatController::class, 'index'])->name('alat.index');
 route::get('/tambah-alat', [AlatController::class, 'create'])->name('tambah-alat');
 route::post('/alat', [AlatController::class, 'store'])->name('alat.store');
@@ -47,3 +41,10 @@ route::delete('/alat/{id}', [AlatController::class, 'destroy'])->name('alat.dest
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('siswa', SiswaController::class);
 });
+
+Route::get('/alat', [AlatController::class, 'index'])->name('alat.index');
+Route::get('/alat/create', [AlatController::class, 'create'])->name('alat.create');
+Route::post('/alat', [AlatController::class, 'store'])->name('alat.store');
+Route::get('/alat/{id}/edit', [AlatController::class, 'edit'])->name('alat.edit');
+Route::put('/alat/{id}', [AlatController::class, 'update'])->name('alat.update');
+Route::delete('/alat/{id}', [AlatController::class, 'destroy'])->name('alat.destroy');
