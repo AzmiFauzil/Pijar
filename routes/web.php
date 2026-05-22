@@ -21,11 +21,23 @@ Route::get('/dashboard', [AuthController::class, 'dashboard']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::get('/dashboard-admin', function () {
-    return view('dashboard-admin');
+    return view('admin.dashboard-admin');
 });
 
 Route::get('/dashboard-petugas', function () {
-    return view('dashboard-petugas');
+    return view('petugas.dashboard-petugas');
+});
+
+Route::get('/peminjaman-admin', function () {
+    return view('admin.peminjaman-admin');
+});
+
+Route::get('/pengembalian-admin', function () {
+    return view('admin.pengembalian-admin');
+});
+
+Route::get('/laporan-admin', function () {
+    return view('admin.laporan-admin');
 });
 
 Route::resource('alat', AlatController::class);
@@ -41,10 +53,3 @@ route::delete('/alat/{id}', [AlatController::class, 'destroy'])->name('alat.dest
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('siswa', SiswaController::class);
 });
-
-Route::get('/alat', [AlatController::class, 'index'])->name('alat.index');
-Route::get('/alat/create', [AlatController::class, 'create'])->name('alat.create');
-Route::post('/alat', [AlatController::class, 'store'])->name('alat.store');
-Route::get('/alat/{id}/edit', [AlatController::class, 'edit'])->name('alat.edit');
-Route::put('/alat/{id}', [AlatController::class, 'update'])->name('alat.update');
-Route::delete('/alat/{id}', [AlatController::class, 'destroy'])->name('alat.destroy');

@@ -71,6 +71,17 @@ class AuthController extends Controller
         return view('siswa.dashboard');
     }
 
+    public function dashboard_admin()
+    {
+        return view('admin.dashboard-admin');
+    }
+
+    public function dashboard_petugas()
+    {
+        return view('petugas.dashboard-petugas');
+    }
+
+
     public function logout()
     {
         auth()->logout();

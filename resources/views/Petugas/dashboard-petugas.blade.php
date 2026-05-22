@@ -266,13 +266,13 @@
       <i class="ti ti-home"></i> Beranda
     </a>
     </div>
-    <a href="peninjauan_peminjaman.html" class="nav-item">
+    <a href="peninjauan-peminjaman.blade.php" class="nav-item">
       <i class="ti ti-file-text"></i> Meninjau Peminjaman
     </a>
-    <a href="peninjauan_pengembalian.html" class="nav-item">
+    <a href="peninjauan-pengembalian.blade.php" class="nav-item">
       <i class="ti ti-arrow-back-up"></i> Meninjau Pengembalian
       </a>
-    <a href="log_aktivitas.html" class="nav-item">
+    <a href="log-aktivitas.blade.php" class="nav-item">
       <i class="ti ti-activity"></i> Log Aktivitas
     </a>
   </nav>

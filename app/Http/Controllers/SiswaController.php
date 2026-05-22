@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -42,7 +42,7 @@ class SiswaController extends Controller
             ->paginate(10)
             ->withQueryString(); // Pertahankan ?search= saat ganti halaman
 
-        return view('admin.siswa.index', compact('siswas', 'search'));
+        return view('admin.data-siswa-admin', compact('siswas', 'search'));
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ class SiswaController extends Controller
     {
         $this->checkAdmin();
 
-        return view('admin.siswa.create');
+        return view('admin.siswa-tambah');
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ class SiswaController extends Controller
         // Tambahan where role siswa agar admin tidak bisa edit akun admin lain
         $siswa = User::where('role', 'siswa')->findOrFail($id);
 
-        return view('admin.siswa.edit', compact('siswa'));
+        return view('admin.siswa-edit', compact('siswa'));
     }
 
     // ─────────────────────────────────────────────────────────────────────────
