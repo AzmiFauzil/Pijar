@@ -27,7 +27,7 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-icon"><img src="{{ asset('img/logo.png') }}" alt="Logo"></div>
+      <div class="sidebar-logo-icon"><img src="{{ asset('siswa/logoPijar.png') }}" alt="Logo"></div>
       <div class="sidebar-logo-text">
         <span class="s-name">PIJAR</span>
       </div>
