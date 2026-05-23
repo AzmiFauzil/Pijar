@@ -36,7 +36,7 @@
           </a>
         </li>
         <li class="item">
-          <a href="data-siswa-admin.blade.php.html"><span class="material-symbols-outlined">manage_accounts</span>
+          <a href="data-siswa-admin.blade."><span class="material-symbols-outlined">manage_accounts</span>
           Data siswa</a>
         </li>
         <li class="item">
