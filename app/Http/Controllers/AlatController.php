@@ -15,7 +15,7 @@ class AlatController extends Controller
     public function index()
     {
         $alat = Alat::with('kategori')->latest()->paginate(5);
-        return view('alat', compact('alat'));
+        return view('admin.data-alat-admin', compact('alat'));
     }
 
     /**
@@ -24,7 +24,7 @@ class AlatController extends Controller
     public function create()
     {
         $kategori = Kategori::all();
-        return view('alat-tambah', compact('kategori'));
+        return view('admin.alat-tambah', compact('kategori'));
     }
 
     /**
@@ -51,7 +51,7 @@ class AlatController extends Controller
     {
         $alat = Alat::findOrFail($id);
         $kategori = Kategori::all();
-        return view('alat-edit', compact('alat', 'kategori'));
+        return view('admin.alat-edit', compact('alat', 'kategori'));
     }
 
     /**

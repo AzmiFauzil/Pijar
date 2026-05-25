@@ -29,91 +29,101 @@
             </div>
 
             <ul class="list">
-        <li class="item">
-          <a href="dashboard-admin.blade.php">
-            <span class="material-symbols-outlined">home</span>
-          Dashboard Admin
-          </a>
-        </li>
-        <li class="item">
-          <a href="data-siswa-admin.blade.php.html"><span class="material-symbols-outlined">manage_accounts</span>
-          Data siswa</a>
-        </li>
-        <li class="item">
-          <a href="data-alat-admin.blade.php"><span class="material-symbols-outlined">folder_managed</span>
-          Data alat</a>
-        </li>
-        <li class="item">
-          <a href="category-admin.blade.php"><span class="material-symbols-outlined">category</span>
-          Kategori</a>
-        </li>
-        <li class="item">
-          <a href="peminjaman-admin.blade.php"><span class="material-symbols-outlined">folder_open</span>
-          Peminjaman</a>
-        </li>
-        <li class="item">
-          <a href="pengembalian-admin.blade.php"><span class="material-symbols-outlined">manage_history</span>
-          Pengembalian</a>
-        </li>
-        <li class="item">
-          <a href="laporan-admin.blade.php"><span class="material-symbols-outlined">report</span>
-          Laporan</a>
-        </li>
-        <li class="logout-btn">
+                <li class="item">
+                    <a href="{{ url('/dashboard-admin') }}">
+                        <span class="material-symbols-outlined">home</span>
+                        Dashboard Admin
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/data-siswa-admin') }}">
+                        <span class="material-symbols-outlined">manage_accounts</span>
+                        Data siswa
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/alat') }}"> <span class="material-symbols-outlined">folder_managed</span>
+                        Data alat
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/kategori') }}"> <span class="material-symbols-outlined">category</span>
+                        Kategori
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/peminjaman-admin') }}">
+                        <span class="material-symbols-outlined">folder_open</span>
+                        Peminjaman
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/pengembalian-admin') }}">
+                        <span class="material-symbols-outlined">manage_history</span>
+                        Pengembalian
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/laporan-admin') }}">
+                        <span class="material-symbols-outlined">report</span>
+                        Laporan
+                    </a>
+                </li>
+                <li class="logout-btn">
                     <button class="btn btn-logout">
-                        <a href="">Logout</a>
+                        <a href="{{ url('/logout') }}">Logout</a>
                     </button>
                 </li>
-      </ul>
+            </ul>
         </aside>
 
-    <main class="main">
+        <main class="main">
 
-    <div class="add-category-box">
+            <div class="add-category-box">
 
 
-        <div class="add-category-box-form">
+                <div class="add-category-box-form">
 
-            <div class="add-category-box-form-group">
-                <label>Nama kategori</label>
-                <input type="text" placeholder="Masukkan nama kategori">
+                    <div class="add-category-box-form-group">
+                        <label>Nama kategori</label>
+                        <input type="text" placeholder="Masukkan nama kategori">
+                    </div>
+
+                </div>
+
+                <div class="add-category-box-form">
+
+                    <div class="add-category-box-form-group">
+                        <label>Deskripsi kategori</label>
+                        <input type="text" placeholder="Masukkan deskripsi kategori">
+                    </div>
+
+                </div>
+
+                <div class="add-category-box-form">
+
+                    <div class="add-category-box-form-group">
+                        <label>Jumlah alat</label>
+                        <input type="text" placeholder="Masukkan jumlah alat kategori">
+                    </div>
+
+                </div>
+
+                <div class="button-add-category-group">
+
+                    <button class="btn btn-cancel">
+                        Batal
+                    </button>
+
+                    <button class="btn btn-save">
+                        Simpan
+                    </button>
+
+                </div>
+
             </div>
 
-        </div>
-
-        <div class="add-category-box-form">
-
-            <div class="add-category-box-form-group">
-                <label>Deskripsi kategori</label>
-                <input type="text" placeholder="Masukkan deskripsi kategori">
-            </div>
-
-        </div>
-
-        <div class="add-category-box-form">
-
-            <div class="add-category-box-form-group">
-                <label>Jumlah alat</label>
-                <input type="text" placeholder="Masukkan jumlah alat kategori">
-            </div>
-
-        </div>
-
-        <div class="button-add-category-group">
-
-            <button class="btn btn-cancel">
-                Batal
-            </button>
-
-            <button class="btn btn-save">
-                Simpan
-            </button>
-
-        </div>
-
-    </div>
-
-</main>
+        </main>
     </div>
 </body>
 

@@ -53,3 +53,22 @@ route::delete('/alat/{id}', [AlatController::class, 'destroy'])->name('alat.dest
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('siswa', SiswaController::class);
 });
+
+Route::prefix('petugas')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('petugas.dashboard-petugas');
+    });
+
+    Route::get('/log-aktifitas', function () {
+        return view('petugas.log-aktifitas');
+    });
+
+    Route::get('/peninjauan-peminjaman', function () {
+        return view('petugas.peninjauan-peminjaman');
+    });
+
+    Route::get('/peninjauan-pengembalian', function () {
+        return view('petugas.peninjauan-pengembalian');
+    });
+
+});

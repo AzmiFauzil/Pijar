@@ -13,7 +13,7 @@ class KategoriController extends Controller
     public function index()
     {
         $kategori = Kategori::latest()->paginate(5);
-        return view('kategori', compact('kategori'));
+        return view('admin.category-admin', compact('kategori'));
     }
 
     /**
@@ -21,7 +21,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('kategori-tambah');
+        return view('admin.kategori-tambah');
     }
 
     /**
@@ -45,7 +45,7 @@ class KategoriController extends Controller
     public function edit(string $id)
     {
         $kategori = Kategori::findOrFail($id); // ← Ambil data dulu
-        return view('kategori-edit', compact('kategori'));
+        return view('admin.kategori-edit', compact('kategori'));
     }
 
     /**

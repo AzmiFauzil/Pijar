@@ -27,44 +27,55 @@
                 </div>
                 <span class="material-symbols-outlined" onclick="closeSidebar()">close</span>
             </div>
-
+            
             <ul class="list">
-        <li class="item">
-          <a href="dashboard-admin.blade.php">
-            <span class="material-symbols-outlined">home</span>
-          Dashboard Admin
-          </a>
-        </li>
-        <li class="item">
-          <a href="data-siswa-admin.blade.php.html"><span class="material-symbols-outlined">manage_accounts</span>
-          Data siswa</a>
-        </li>
-        <li class="item">
-          <a href="data-alat-admin.blade.php"><span class="material-symbols-outlined">folder_managed</span>
-          Data alat</a>
-        </li>
-        <li class="item">
-          <a href="category-admin.blade.php"><span class="material-symbols-outlined">category</span>
-          Kategori</a>
-        </li>
-        <li class="item">
-          <a href="peminjaman-admin.blade.php"><span class="material-symbols-outlined">folder_open</span>
-          Peminjaman</a>
-        </li>
-        <li class="item">
-          <a href="pengembalian-admin.blade.php"><span class="material-symbols-outlined">manage_history</span>
-          Pengembalian</a>
-        </li>
-        <li class="item">
-          <a href="laporan-admin.blade.php"><span class="material-symbols-outlined">report</span>
-          Laporan</a>
-        </li>
-        <li class="logout-btn">
-                    <button class="btn btn-logout">
-                        <a href="">Logout</a>
-                    </button>
-                </li>
-      </ul>
+              <li class="item">
+                  <a href="{{ url('/dashboard-admin') }}">
+                      <span class="material-symbols-outlined">home</span>
+                      Dashboard Admin
+                  </a>
+              </li>
+              <li class="item">
+                  <a href="{{ url('/data-siswa-admin') }}">
+                      <span class="material-symbols-outlined">manage_accounts</span>
+                      Data siswa
+                  </a>
+              </li>
+              <li class="item">
+                  <a href="{{ url('/alat') }}"> <span class="material-symbols-outlined">folder_managed</span>
+                      Data alat
+                  </a>
+              </li>
+              <li class="item">
+                  <a href="{{ url('/kategori') }}"> <span class="material-symbols-outlined">category</span>
+                      Kategori
+                  </a>
+              </li>
+              <li class="item">
+                  <a href="{{ url('/peminjaman-admin') }}">
+                      <span class="material-symbols-outlined">folder_open</span>
+                      Peminjaman
+                  </a>
+              </li>
+              <li class="item">
+                  <a href="{{ url('/pengembalian-admin') }}">
+                      <span class="material-symbols-outlined">manage_history</span>
+                      Pengembalian
+                  </a>
+              </li>
+              <li class="item">
+                  <a href="{{ url('/laporan-admin') }}">
+                      <span class="material-symbols-outlined">report</span>
+                      Laporan
+                  </a>
+              </li>
+              <li class="logout-btn">
+                  <button class="btn btn-logout">
+                      <a href="{{ url('/logout') }}">Logout</a>
+                  </button>
+              </li>
+          </ul>
+            
         </aside>
 
     <main class="main">
