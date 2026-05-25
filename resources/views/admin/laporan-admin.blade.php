@@ -70,11 +70,7 @@
                     </a>
                 </li>
                 <li class="logout-btn">
-                    <button class="btn btn-logout">
-                        <a href="{{ url('/logout') }}">Logout</a>
-                    </button>
-                </li>
-            </ul>
+
         </aside>
 
         <main class="main">
@@ -85,15 +81,6 @@
 
                     <div class="box-laporan-title">
                         <h2>Grafik Peminjaman</h2>
-
-                        <select class="dropdown">
-                            <option value="">Periode</option>
-                            <option value="1d">1 Hari</option>
-                            <option value="7d">7 Hari</option>
-                            <option value="30d">30 Hari</option>
-                            <option value="6m">6 Bulan</option>
-                            <option value="1y">1 Tahun</option>
-                        </select>
                     </div>
 
                     <div class="doughnut-chart">

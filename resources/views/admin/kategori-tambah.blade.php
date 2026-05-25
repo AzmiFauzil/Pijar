@@ -29,6 +29,7 @@
             </div>
 
             <ul class="list">
+
                 <li class="item">
                     <a href="{{ url('/dashboard-admin') }}">
                         <span class="material-symbols-outlined">home</span>
@@ -70,6 +71,7 @@
                     </a>
                 </li>
                 <li class="logout-btn">
+
                     <button class="btn btn-logout">
                         <a href="{{ url('/logout') }}">Logout</a>
                     </button>

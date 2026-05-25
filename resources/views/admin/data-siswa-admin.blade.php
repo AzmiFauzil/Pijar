@@ -36,10 +36,12 @@
           </a>
         </li>
         <li class="item">
+
           <a href="{{ url('/data-siswa-admin') }}">
             <span class="material-symbols-outlined">manage_accounts</span>
             Data siswa
           </a>
+
         </li>
         <li class="item">
           <a href="{{ url('/data-alat-admin') }}">
@@ -104,10 +106,9 @@
             <th>NIS</th>
             <th>Nama Siswa</th>
             <th>Kelas</th>
-            <th>Jenis Kelamin</th>
             <th>No. HP</th>
             <th>Email</th>
-            <th>Status</th>
+            <th>Aksi</th>
         </thead>
 
         <tbody>
@@ -116,10 +117,17 @@
                 <td>2023001</td>
                 <td>Nesya</td>
                 <td>XI PPLG</td>
-                <td>Perempuan</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 aktif">Aktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -127,10 +135,17 @@
                 <td>2023001</td>
                 <td>Aul</td>
                 <td>XI DKV</td>
-                <td>Perempuan</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 nonaktif">Nonaktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -138,21 +153,35 @@
                 <td>2023001</td>
                 <td>Rahmat</td>
                 <td>XII PPLG</td>
-                <td>Laki-laki</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 aktif">Aktif</span></td>
-            </tr>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>            
+        </tr>
 
             <tr>
                 <td>4</td>
                 <td>2023001</td>
                 <td>Keonho</td>
                 <td>X PPLG</td>
-                <td>Laki-laki</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 aktif">Aktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -160,10 +189,17 @@
                 <td>2023001</td>
                 <td>Han Sohee</td>
                 <td>XII DKV</td>
-                <td>Perempuan</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 nonaktif">Nonaktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -171,10 +207,17 @@
                 <td>2023001</td>
                 <td>Mulyono</td>
                 <td>XI PPLG</td>
-                <td>Laki-laki</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 aktif">Aktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -182,10 +225,17 @@
                 <td>2023001</td>
                 <td>CEO MBG</td>
                 <td>XII DKV</td>
-                <td>Laki-laki</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 nonaktif">Nonaktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -193,10 +243,17 @@
                 <td>2023001</td>
                 <td>Fufufafa</td>
                 <td>X DKV</td>
-                <td>Laki-laki</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 aktif">Aktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -204,10 +261,17 @@
                 <td>2020207</td>
                 <td>Windut</td>
                 <td>XII DKV</td>
-                <td>Laki-laki</td>
                 <td>0812345678</td>
                 <td>email@gmail.com</td>
-                <td><span class="badge2 aktif">Aktif</span></td>
+                <td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
             <tr>
@@ -215,22 +279,22 @@
                 <td>2020207</td>
                 <td>Kurniawan</td>
                 <td>X DKV</td>
-                <td>Laki-laki</td>
                 <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td><span class="badge2 aktif">Aktif</span></td>
+                <td>email@gmail.com</td><td class="aksi">
+            <button class="edit">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+
+            <button class="hapus">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
             </tr>
 
 
         </tbody>
     </table>
 
-    <div class="pagination">
-      <a href="dataSiswa-admin.blade.php"><</a>
-      <a href="dataSiswa-admin.blade.php" class="pagination-active">1</a>
-      <a href="dataSiswa-admin-table-2.blade.php">2</a>
-      <a href="dataSiswa-admin-table-2.blade.php">></a>
-    </div>
 
   </div>
 

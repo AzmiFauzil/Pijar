@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <style>
-        .text-danger { color: #dc3545; font-size: 0.85rem; margin-top: 5px; display: block; }
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: block;
+    }
     </style>
 </head>
 
@@ -32,15 +37,56 @@
             </div>
 
             <ul class="list">
-                <li class="item"><a href="#"><span class="material-symbols-outlined">home</span> Dashboard Admin</a></li>
-                <li class="item"><a href="#"><span class="material-symbols-outlined">manage_accounts</span> Data siswa</a></li>
-                <li class="item"><a href="{{ route('alat.index') }}"><span class="material-symbols-outlined">folder_managed</span> Data alat</a></li>
-                <li class="item"><a href="#"><span class="material-symbols-outlined">category</span> Kategori</a></li>
-                <li class="item"><a href="#"><span class="material-symbols-outlined">folder_open</span> Peminjaman</a></li>
-                <li class="item"><a href="#"><span class="material-symbols-outlined">manage_history</span> Pengembalian</a></li>
+                <li class="item"><a href="#"><span class="material-symbols-outlined">home</span> Dashboard
+                        Admin</a></li>
+                <li class="item"><a href="#"><span class="material-symbols-outlined">manage_accounts</span> Data
+                        siswa</a></li>
+                <li class="item"><a href="{{ route('alat.index') }}"><span
+                            class="material-symbols-outlined">folder_managed</span> Data alat</a></li>
+                <li class="item"><a href="#"><span class="material-symbols-outlined">category</span> Kategori</a>
+                </li>
+                <li class="item"><a href="#"><span class="material-symbols-outlined">folder_open</span>
+                        Peminjaman</a></li>
+                <li class="item"><a href="#"><span class="material-symbols-outlined">manage_history</span>
+                        Pengembalian</a></li>
                 <li class="item"><a href="#"><span class="material-symbols-outlined">report</span> Laporan</a></li>
                 <li class="logout-btn">
                     <a href="#" class="btn btn-logout" style="text-decoration: none; text-align: center;">Logout</a>
+                    =======
+                <li class="item">
+                    <a href="dashboard-admin.blade.php">
+                        <span class="material-symbols-outlined">home</span>
+                        Dashboard Admin
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="data-siswa-admin.blade.php"><span class="material-symbols-outlined">manage_accounts</span>
+                        Data siswa</a>
+                </li>
+                <li class="item">
+                    <a href="data-alat-admin.blade.php"><span class="material-symbols-outlined">folder_managed</span>
+                        Data alat</a>
+                </li>
+                <li class="item">
+                    <a href="category-admin.blade.php"><span class="material-symbols-outlined">category</span>
+                        Kategori</a>
+                </li>
+                <li class="item">
+                    <a href="peminjaman-admin.blade.php"><span class="material-symbols-outlined">folder_open</span>
+                        Peminjaman</a>
+                </li>
+                <li class="item">
+                    <a href="pengembalian-admin.blade.php"><span class="material-symbols-outlined">manage_history</span>
+                        Pengembalian</a>
+                </li>
+                <li class="item">
+                    <a href="laporan-admin.blade.php"><span class="material-symbols-outlined">report</span>
+                        Laporan</a>
+                </li>
+                <li class="logout-btn">
+                    <button class="btn btn-logout">
+                        <a href="">Logout</a>
+                    </button>
                 </li>
             </ul>
         </aside>
@@ -53,7 +99,8 @@
                     <div class="add-alat-box-form">
                         <div class="add-alat-box-form-group">
                             <label for="nama_alat">Nama alat</label>
-                            <input type="text" id="nama_alat" name="nama_alat" value="{{ old('nama_alat') }}" placeholder="Masukkan nama alat">
+                            <input type="text" id="nama_alat" name="nama_alat" value="{{ old('nama_alat') }}"
+                                placeholder="Masukkan nama alat">
                             @error('nama_alat') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
@@ -63,9 +110,9 @@
                                 <option value="">Pilih kategori</option>
                                 {{-- Looping kategori dari database --}}
                                 @foreach($kategori as $kat)
-                                    <option value="{{ $kat->id }}" {{ old('kategori_id') == $kat->id ? 'selected' : '' }}>
-                                        {{ $kat->nama_kategori }}
-                                    </option>
+                                <option value="{{ $kat->id }}" {{ old('kategori_id') == $kat->id ? 'selected' : '' }}>
+                                    {{ $kat->nama_kategori }}
+                                </option>
                                 @endforeach
                             </select>
                             @error('kategori_id') <span class="text-danger">{{ $message }}</span> @enderror
@@ -76,13 +123,15 @@
                     <div class="add-alat-box-form">
                         <div class="add-alat-box-form-group">
                             <label for="jumlah_alat">Jumlah alat</label>
-                            <input type="number" id="jumlah_alat" name="jumlah_alat" value="{{ old('jumlah_alat', 0) }}" placeholder="Masukkan jumlah alat">
+                            <input type="number" id="jumlah_alat" name="jumlah_alat" value="{{ old('jumlah_alat', 0) }}"
+                                placeholder="Masukkan jumlah alat">
                             @error('jumlah_alat') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="button-add-alat-group">
-                        <a href="{{ route('alat.index') }}" class="btn btn-cancel" style="text-decoration: none; text-align: center; display: inline-block; line-height: 2.5;">
+                        <a href="{{ route('alat.index') }}" class="btn btn-cancel"
+                            style="text-decoration: none; text-align: center; display: inline-block; line-height: 2.5;">
                             Batal
                         </a>
                         <button type="submit" class="btn btn-save">

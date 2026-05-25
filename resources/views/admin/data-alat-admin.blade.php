@@ -40,6 +40,7 @@
       </div>
 
       <ul class="list">
+
   <li class="item">
     <a href="{{ url('dashboard-admin') }}">
       <span class="material-symbols-outlined">home</span>
@@ -98,6 +99,7 @@
     </form>
   </li>
 </ul>
+
     </aside>
 
     <main class="main">

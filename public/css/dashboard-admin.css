@@ -500,7 +500,7 @@ td{
     }
 }
 
-.pagination{
+/* .pagination{
     text-align: center;
 }
 
@@ -522,7 +522,7 @@ td{
 .pagination a:hover:not(.pagination-active) {
     background-color: #808080;
     border-radius: 5px;
-}
+} */
 
 .table-siswa {
     width: 100%;

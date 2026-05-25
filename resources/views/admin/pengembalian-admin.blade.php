@@ -29,204 +29,198 @@
             </div>
 
             <ul class="list">
-              <li class="item">
-                  <a href="{{ url('/dashboard-admin') }}">
-                      <span class="material-symbols-outlined">home</span>
-                      Dashboard Admin
-                  </a>
-              </li>
-              <li class="item">
-                  <a href="{{ url('/data-siswa-admin') }}">
-                      <span class="material-symbols-outlined">manage_accounts</span>
-                      Data siswa
-                  </a>
-              </li>
-              <li class="item">
-                  <a href="{{ url('/alat') }}"> <span class="material-symbols-outlined">folder_managed</span>
-                      Data alat
-                  </a>
-              </li>
-              <li class="item">
-                  <a href="{{ url('/kategori') }}"> <span class="material-symbols-outlined">category</span>
-                      Kategori
-                  </a>
-              </li>
-              <li class="item">
-                  <a href="{{ url('/peminjaman-admin') }}">
-                      <span class="material-symbols-outlined">folder_open</span>
-                      Peminjaman
-                  </a>
-              </li>
-              <li class="item">
-                  <a href="{{ url('/pengembalian-admin') }}">
-                      <span class="material-symbols-outlined">manage_history</span>
-                      Pengembalian
-                  </a>
-              </li>
-              <li class="item">
-                  <a href="{{ url('/laporan-admin') }}">
-                      <span class="material-symbols-outlined">report</span>
-                      Laporan
-                  </a>
-              </li>
-              <li class="logout-btn">
-                  <button class="btn btn-logout">
-                      <a href="{{ url('/logout') }}">Logout</a>
-                  </button>
-              </li>
-          </ul>
+                <li class="item">
+                    <a href="{{ url('/dashboard-admin') }}">
+                        <span class="material-symbols-outlined">home</span>
+                        Dashboard Admin
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/data-siswa-admin') }}">
+                        <span class="material-symbols-outlined">manage_accounts</span>
+                        Data siswa
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/alat') }}"> <span class="material-symbols-outlined">folder_managed</span>
+                        Data alat
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/kategori') }}"> <span class="material-symbols-outlined">category</span>
+                        Kategori
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/peminjaman-admin') }}">
+                        <span class="material-symbols-outlined">folder_open</span>
+                        Peminjaman
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/pengembalian-admin') }}">
+                        <span class="material-symbols-outlined">manage_history</span>
+                        Pengembalian
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ url('/laporan-admin') }}">
+                        <span class="material-symbols-outlined">report</span>
+                        Laporan
+                    </a>
+                </li>
+                <li class="logout-btn">
+                    <button class="btn btn-logout">
+                        <a href="{{ url('/logout') }}">Logout</a>
+                    </button>
+                </li>
+            </ul>
         </aside>
 
-    <main class="main">
+        <main class="main">
 
-    <div class="filter-box">
+            <div class="filter-box">
 
-      <div class="search-box">
-        <span class="material-symbols-outlined">search</span>
-        <input type="text" placeholder="Cari nama siswa atau alat">
-      </div>
+                <div class="search-box">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" placeholder="Cari nama siswa atau alat">
+                </div>
 
-      <div class="date-box">
-        <input type="date" name="tanggal-pengembalian" id="tanggal-pengembalian">
-      </div>
+                <div class="date-box">
+                    <input type="date" name="tanggal-pengembalian" id="tanggal-pengembalian">
+                </div>
 
-      <div class="status-box">
-        <select name="status-pengembalian" id="status-pengembalian">
-          <option value="">Semua status</option>
-          <option value="dipinjam">Dipinjam</option>
-          <option value="dikembalikan">Dikembalikan</option>
-          <option value="terlambat">Terlambat</option>
-        </select>
-      </div>
+                <div class="status-box">
+                    <select name="status-pengembalian" id="status-pengembalian">
+                        <option value="">Semua status</option>
+                        <option value="dipinjam">Dipinjam</option>
+                        <option value="dikembalikan">Dikembalikan</option>
+                        <option value="terlambat">Terlambat</option>
+                    </select>
+                </div>
 
-    </div>
+            </div>
 
-    <div class="table-pengembalian">
+            <div class="table-pengembalian">
 
-      <table class="pengembalian-table">
+                <table class="pengembalian-table">
 
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>ID Pinjaman</th>
-            <th>Nama Peminjam</th>
-            <th>Kelas Peminjam</th>
-            <th>Alat</th>
-            <th>Tanggal Pinjam</th>
-            <th>Jatuh Tempo</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>ID Pinjaman</th>
+                            <th>Nama Peminjam</th>
+                            <th>Kelas Peminjam</th>
+                            <th>Alat</th>
+                            <th>Tanggal Pinjam</th>
+                            <th>Jatuh Tempo</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
 
-        <tbody>
+                    <tbody>
 
-          <tr>
-            <td>1</td>
-            <td>Pj-240520-001</td>
-            <td>Cahya</td>
-            <td>XI DKV</td>
+                        <tr>
+                            <td>1</td>
+                            <td>Pj-240520-001</td>
+                            <td>Cahya</td>
+                            <td>XI DKV</td>
 
-            <td class="alat-pengembalian">
-              <!-- <img src="img/image.png" alt=""> -->
-              <span>Proyektor BenQ MS550</span>
-            </td>
+                            <td class="alat-pengembalian">
+                                <!-- <img src="img/image.png" alt=""> -->
+                                <span>Proyektor BenQ MS550</span>
+                            </td>
 
-            <td>26 April 2026</td>
-            <td>03 Mei 2026</td>
+                            <td>26 April 2026</td>
+                            <td>03 Mei 2026</td>
 
-            <td><button class="late">Terlambat</button></td>
+                            <td><button class="late">Terlambat</button></td>
 
-          </tr>
+                        </tr>
 
-          <tr>
-            <td>2</td>
-            <td>Pj-240520-002</td>
-            <td>Akmal</td>
-            <td>X DKV</td>
+                        <tr>
+                            <td>2</td>
+                            <td>Pj-240520-002</td>
+                            <td>Akmal</td>
+                            <td>X DKV</td>
 
-            <td class="alat-pengembalian">
-              <!-- <img src="img/image.png" alt=""> -->
-              <span>Proyektor BenQ MS550</span>
-            </td>
+                            <td class="alat-pengembalian">
+                                <!-- <img src="img/image.png" alt=""> -->
+                                <span>Proyektor BenQ MS550</span>
+                            </td>
 
-            <td>26 April 2026</td>
-            <td>03 Mei 2026</td>
+                            <td>26 April 2026</td>
+                            <td>03 Mei 2026</td>
 
-            <td><button class="borrow">Dipinjam</button></td>
+                            <td><button class="borrow">Dipinjam</button></td>
 
-          </tr>
+                        </tr>
 
-          <tr>
-            <td>3</td>
-            <td>Pj-240520-003</td>
-            <td>Fei</td>
-            <td>XII PPLG</td>
+                        <tr>
+                            <td>3</td>
+                            <td>Pj-240520-003</td>
+                            <td>Fei</td>
+                            <td>XII PPLG</td>
 
-            <td class="alat-pengembalian">
-              <!-- <img src="img/image.png" alt=""> -->
-              <span>Proyektor BenQ MS550</span>
-            </td>
+                            <td class="alat-pengembalian">
+                                <!-- <img src="img/image.png" alt=""> -->
+                                <span>Proyektor BenQ MS550</span>
+                            </td>
 
-            <td>26 April 2026</td>
-            <td>03 Mei 2026</td>
+                            <td>26 April 2026</td>
+                            <td>03 Mei 2026</td>
 
-            <td><button class="borrow">Dipinjam</button></td>
+                            <td><button class="borrow">Dipinjam</button></td>
 
-          </tr>
+                        </tr>
 
-          <tr>
-            <td>4</td>
-            <td>Pj-240520-004</td>
-            <td>Syifa</td>
-            <td>X PPLG</td>
+                        <tr>
+                            <td>4</td>
+                            <td>Pj-240520-004</td>
+                            <td>Syifa</td>
+                            <td>X PPLG</td>
 
-            <td class="alat-pengembalian">
-              <!-- <img src="img/image.png" alt=""> -->
-              <span>Proyektor BenQ MS550</span>
-            </td>
+                            <td class="alat-pengembalian">
+                                <!-- <img src="img/image.png" alt=""> -->
+                                <span>Proyektor BenQ MS550</span>
+                            </td>
 
-            <td>26 April 2026</td>
-            <td>03 Mei 2026</td>
+                            <td>26 April 2026</td>
+                            <td>03 Mei 2026</td>
 
-            <td><button class="return">Dikembalikan</button></td>
+                            <td><button class="return">Dikembalikan</button></td>
 
-          </tr>
+                        </tr>
 
-          <tr>
-            <td>5</td>
-            <td>Pj-240520-005</td>
-            <td>Rina</td>
-            <td>XI PPLG</td>
+                        <tr>
+                            <td>5</td>
+                            <td>Pj-240520-005</td>
+                            <td>Rina</td>
+                            <td>XI PPLG</td>
 
-            <td class="alat-pengembalian">
-              <!-- <img src="img/image.png" alt=""> -->
-              <span>Proyektor BenQ MS550</span>
-            </td>
+                            <td class="alat-pengembalian">
+                                <!-- <img src="img/image.png" alt=""> -->
+                                <span>Proyektor BenQ MS550</span>
+                            </td>
 
-            <td>26 April 2026</td>
-            <td>03 Mei 2026</td>
+                            <td>26 April 2026</td>
+                            <td>03 Mei 2026</td>
 
-            <td><button class="late">Terlambat</button></td>
+                            <td><button class="late">Terlambat</button></td>
 
-          </tr>
-
-
-        </tbody>
-
-      </table>
-
-      <div class="pagination">
-      <a href="pengembalian-admin.blade.php"><</a>
-      <a href="pengembalian-admin.blade.php" class="pagination-active">1</a>
-      <a href="pengembalian-admin-table-2.blade.php">2</a>
-      <a href="pengembalian-admin-table-2.blade.php">></a>
-    </div>
-
-    </div>
-    
+                        </tr>
 
 
-    </main>
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+
+        </main>
     </div>
 </body>
 

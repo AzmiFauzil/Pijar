@@ -29,6 +29,7 @@
             </div>
             
             <ul class="list">
+<<<<<<< HEAD
               <li class="item">
                   <a href="{{ url('/dashboard-admin') }}">
                       <span class="material-symbols-outlined">home</span>
@@ -76,6 +77,44 @@
               </li>
           </ul>
             
+=======
+        <li class="item">
+          <a href="dashboard-admin.blade.php">
+            <span class="material-symbols-outlined">home</span>
+          Dashboard Admin
+          </a>
+        </li>
+        <li class="item">
+          <a href="data-siswa-admin.blade.php"><span class="material-symbols-outlined">manage_accounts</span>
+          Data siswa</a>
+        </li>
+        <li class="item">
+          <a href="data-alat-admin.blade.php"><span class="material-symbols-outlined">folder_managed</span>
+          Data alat</a>
+        </li>
+        <li class="item">
+          <a href="category-admin.blade.php"><span class="material-symbols-outlined">category</span>
+          Kategori</a>
+        </li>
+        <li class="item">
+          <a href="peminjaman-admin.blade.php"><span class="material-symbols-outlined">folder_open</span>
+          Peminjaman</a>
+        </li>
+        <li class="item">
+          <a href="pengembalian-admin.blade.php"><span class="material-symbols-outlined">manage_history</span>
+          Pengembalian</a>
+        </li>
+        <li class="item">
+          <a href="laporan-admin.blade.php"><span class="material-symbols-outlined">report</span>
+          Laporan</a>
+        </li>
+        <li class="logout-btn">
+                    <button class="btn btn-logout">
+                        <a href="">Logout</a>
+                    </button>
+                </li>
+      </ul>
+>>>>>>> 376e91e3631c6971d6b49f481a65c8de6dc51a35
         </aside>
 
     <main class="main">
@@ -233,12 +272,7 @@
 
       </table>
 
-      <div class="pagination">
-      <a href="peminjaman-admin.blade.php"><</a>
-      <a href="peminjaman-admin.blade.php" class="pagination-active">1</a>
-      <a href="peminjaman-admin-table-2.blade.php">2</a>
-      <a href="peminjaman-admin-table-2.blade.php">></a>
-    </div>
+    
 
     </div>
     

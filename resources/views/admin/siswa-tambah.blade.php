@@ -70,6 +70,7 @@
                     </a>
                 </li>
                 <li class="logout-btn">
+
                     <button class="btn btn-logout">
                         <a href="{{ url('/logout') }}">Logout</a>
                     </button>

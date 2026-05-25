@@ -28,6 +28,7 @@
                 <span class="material-symbols-outlined" onclick="closeSidebar()">close</span>
             </div>
 
+
                 <ul class="list">
                 <li class="item">
                     <a href="{{ url('/dashboard-admin') }}">
@@ -70,6 +71,7 @@
                     </a>
                 </li>
                 <li class="logout-btn">
+
                     <button class="btn btn-logout">
                         <a href="{{ url('/logout') }}">Logout</a>
                     </button>
