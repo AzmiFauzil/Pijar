@@ -27,10 +27,10 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-icon"><img src="{{ asset('siswa/logoPijar.png') }}" alt="Logo"></div>
-      <div class="sidebar-logo-text">
+      <div class="sidebar-logo-icon"><img src="{{ asset('images/logo_pijar.png') }}" alt="Logo"></div>
+      <!-- <div class="sidebar-logo-text">
         <span class="s-name">PIJAR</span>
-      </div>
+      </div> -->
     </div>
     <nav class="sidebar-nav">
       <ul>
@@ -41,10 +41,11 @@
     </nav>
     <div class="sidebar-user">
       <div class="sidebar-avatar">
-        <img src="{{ asset('img/avatar.png') }}" alt="Avatar">
+        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->nama_user) }}&background=5c3d1e&color=fff&size=38" alt="Avatar">
       </div>
       <div class="sidebar-user-info">
         <span class="u-name">{{ Auth::user()->name }}</span>
+        <span class="u-name">{{ Auth::user()->nama_user }}</span>
         <span class="u-class">{{ Auth::user()->kelas ?? 'Siswa' }}</span>
       </div>
     </div>
@@ -57,7 +58,7 @@
     <section id="page-dashboard" class="page active">
       <div class="page-header">
         <h1>Dashboard</h1>
-        <p>Selamat datang, {{ Auth::user()->name }}. Pinjam alat sekolah dengan mudah dan cepat.</p>
+        <p>Selamat datang, {{ Auth::user()->nama_user }}. Pinjam alat sekolah dengan mudah dan cepat.</p>
       </div>
 
       <!-- Stat Cards -->
