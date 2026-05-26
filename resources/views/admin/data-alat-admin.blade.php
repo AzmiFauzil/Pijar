@@ -34,70 +34,57 @@
     <aside class="sidebar">
       <div class="title">
         <div class="logo">
-          <img src="{{ asset('img/logo.png') }}" alt="logo">
+          <img src="{{ asset('images/logo_pijar.png') }}" alt="logo">
         </div>
         <span class="material-symbols-outlined" onclick="closeSidebar()">close</span>
       </div>
 
-      <ul class="list">
-
-  <li class="item">
-    <a href="{{ url('dashboard-admin') }}">
-      <span class="material-symbols-outlined">home</span>
-      Dashboard Admin
-    </a>
-  </li>
-
-  <li class="item">
-    <a href="{{ route('admin.siswa.index') }}">
-      <span class="material-symbols-outlined">manage_accounts</span>
-      Data siswa
-    </a>
-  </li>
-
-  <li class="item">
-    <a href="{{ route('alat.index') }}">
-      <span class="material-symbols-outlined">folder_managed</span>
-      Data alat
-    </a>
-  </li>
-
-  <li class="item">
-    <a href="{{ route('kategori.index') }}">
-      <span class="material-symbols-outlined">category</span>
-      Kategori
-    </a>
-  </li>
-
-  <li class="item">
-    <a href="{{ url('peminjaman-admin') }}">
-      <span class="material-symbols-outlined">folder_open</span>
-      Peminjaman
-    </a>
-  </li>
-
-  <li class="item">
-    <a href="{{ url('pengembalian-admin') }}">
-      <span class="material-symbols-outlined">manage_history</span>
-      Pengembalian
-    </a>
-  </li>
-
-  <li class="item">
-    <a href="{{ url('laporan-admin') }}">
-      <span class="material-symbols-outlined">report</span>
-      Laporan
-    </a>
-  </li>
-
-  <li class="logout-btn">
-    <form action="{{ url('logout') }}" method="POST" style="display: inline;">
-      @csrf
-      <button type="submit" class="btn btn-logout" style="background: none; border: none; padding: 0;">
-        <a style="cursor: pointer;">Logout</a>
-      </button>
-    </form>
-  </li>
+<ul class="list">
+    <li class="item">
+        <a href="{{ url('/dashboard-admin') }}">
+            <span class="material-symbols-outlined">home</span>
+            Dashboard Admin
+        </a>
+    </li>
+    <li class="item">
+        <a href="{{ url('/data-siswa-admin') }}">
+            <span class="material-symbols-outlined">manage_accounts</span>
+            Data siswa
+        </a>
+    </li>
+    <li class="item">
+        <a href="{{ url('/alat') }}"> <span class="material-symbols-outlined">folder_managed</span>
+            Data alat
+        </a>
+    </li>
+    <li class="item">
+        <a href="{{ url('/kategori') }}"> <span class="material-symbols-outlined">category</span>
+            Kategori
+        </a>
+    </li>
+    <li class="item">
+        <a href="{{ url('/peminjaman-admin') }}">
+            <span class="material-symbols-outlined">folder_open</span>
+            Peminjaman
+        </a>
+    </li>
+    <li class="item">
+        <a href="{{ url('/pengembalian-admin') }}">
+            <span class="material-symbols-outlined">manage_history</span>
+            Pengembalian
+        </a>
+    </li>
+    <li class="item">
+        <a href="{{ url('/laporan-admin') }}">
+            <span class="material-symbols-outlined">report</span>
+            Laporan
+        </a>
+    </li>
+    <li class="logout-btn">
+        <button class="btn btn-logout">
+            <a href="{{ url('/logout') }}">Logout</a>
+        </button>
+    </li>
 </ul>
 
     </aside>

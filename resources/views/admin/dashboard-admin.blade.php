@@ -23,7 +23,7 @@
         <aside class="sidebar">
             <div class="title">
                 <div class="logo">
-                    <img src="img/logo.png" alt="logo">
+                    <img src="{{ asset('images/logo_pijar.png') }}" alt="logo">
                 </div>
                 <span class="material-symbols-outlined" onclick="closeSidebar()">close</span>
             </div>
