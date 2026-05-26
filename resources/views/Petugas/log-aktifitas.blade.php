@@ -40,15 +40,15 @@
     }
 
     .logo-icon {
-        width: 38px;
-        height: 38px;
-        background: #c8a84b;
-        border-radius: 50%;
+        width: 100%;
+        max-width: 160px;
+        height: auto;
+        background: transparent;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
     }
+    .logo-icon img { width: 100%; height: auto; object-fit: contain; }
 
     .logo-name {
         font-size: 15px;
@@ -449,8 +449,8 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="sidebar-logo">
-            <div class="logo-icon">📚</div>
-            <span class="logo-name">PiJAR</span>
+            <div class="logo-icon"><img src="{{ asset('images/logo_pijar.png') }}" alt="Logo"></div>
+            <!-- <span class="logo-name">PiJAR</span> -->
         </div>
         <nav class="sidebar-nav">
             <div class="nav-item active">
