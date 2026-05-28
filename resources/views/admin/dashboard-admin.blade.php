@@ -80,6 +80,7 @@
 
                 <li class="logout-btn">
                     <button class="btn btn-logout" onclick="window.location.href='{{ url('/logout') }}'" style="color: white; text-decoration: none;">
+                        <b>Logout</b>
                     </button>
                 </li>
             </ul>
