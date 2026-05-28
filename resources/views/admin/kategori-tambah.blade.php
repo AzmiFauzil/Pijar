@@ -79,41 +79,37 @@
 
         <main class="main">
 
-            <div class="add-category-box">
+            <form action="{{ route('kategori.store') }}" method="POST">
+                @csrf
+                <div class="add-category-box">
 
+                    <div class="add-category-box-form">
+                        <div class="add-category-box-form-group">
+                            <label for="nama_kategori">Nama kategori</label>
+                            <input type="text" name="nama_kategori" id="nama_kategori" value="{{ old('nama_kategori') }}" placeholder="Masukkan nama kategori" required>
+                            @error('nama_kategori') <span style="color:red; font-size:12px;">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
 
-                <div class="add-category-box-form">
+                    <!-- <div class="add-category-box-form">
+                        <div class="add-category-box-form-group">
+                            <label for="deskripsi">Deskripsi kategori</label>
+                            <input type="text" name="deskripsi" id="deskripsi" value="{{ old('deskripsi') }}" placeholder="Masukkan deskripsi kategori">
+                        </div>
+                    </div> -->
 
-                    <div class="add-category-box-form-group">
-                        <label>Nama kategori</label>
-                        <input type="text" placeholder="Masukkan nama kategori">
+                    <div class="button-add-category-group">
+                        <a href="{{ route('kategori.index') }}" class="btn btn-cancel" style="text-decoration: none; display: inline-block; line-height: 2.5; text-align: center;">
+                            Batal
+                        </a>
+
+                        <button type="submit" class="btn btn-save">
+                            Simpan
+                        </button>
                     </div>
 
                 </div>
-
-                <div class="add-category-box-form">
-
-                    <div class="add-category-box-form-group">
-                        <label>Deskripsi kategori</label>
-                        <input type="text" placeholder="Masukkan deskripsi kategori">
-                    </div>
-
-                </div>
-
-                <div class="button-add-category-group">
-
-                    <button class="btn btn-cancel">
-                        Batal
-                    </button>
-
-                    <button class="btn btn-save">
-                        Simpan
-                    </button>
-
-                </div>
-
-            </div>
-
+            </form>
         </main>
     </div>
 </body>

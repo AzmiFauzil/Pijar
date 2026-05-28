@@ -18,6 +18,26 @@
       border-radius: 5px;
       margin-bottom: 20px;
     }
+    .badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        display: inline-block;
+    }
+    .badge.tersedia {
+        background-color: #dcfce7;
+        color: #16a34a;
+    }
+    .badge.tidak {
+        background-color: #fee2e2;
+        color: #dc2626;
+    }
+    .filter-form {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
   </style>
 </head>
 
@@ -99,39 +119,49 @@
       <div class="cards">
         <div class="card">
           <div class="inner">
+            <h3>Total Alat</h3>
+            <span class="material-symbols-outlined">format_list_bulleted</span>
+          </div>
+          <h4>{{ $total_alat }}</h4>
+        </div>
+        <div class="card">
+          <div class="inner">
             <h3>Alat Tersedia</h3>
             <span class="material-symbols-outlined">check_circle</span>
           </div>
-          <h4>45</h4> </div>
+          <h4>{{ $total_tersedia }}</h4> 
+        </div>
 
         <div class="card">
           <div class="inner">
             <h3>Alat Dipinjam</h3>
             <span class="material-symbols-outlined">cancel</span>
           </div>
-          <h4>75</h4>
+          <h4>{{ $total_dipinjam }}</h4>
         </div>
       </div>
 
       <div class="filter-box">
-        <select>
-          <option>Semua Kategori</option>
-          <option value="elektronik">Elektronik</option>
-          <option value="olahraga">Olahraga</option>
-          <option value="kebersihan">Kebersihan</option>
-        </select>
+        <form action="{{ route('alat.index') }}" method="GET" class="filter-form">
+            <select name="kategori_id" onchange="this.form.submit()">
+                <option value="">Semua Kategori</option>
+                @foreach($kategori_list as $kategori)
+                    <option value="{{ $kategori->id }}" {{ $kategori_filter == $kategori->id ? 'selected' : '' }}>
+                        {{ $kategori->nama_kategori }}
+                    </option>
+                @endforeach
+            </select>
 
-        <div class="search-box">
-          <input type="text" placeholder="Cari nama alat">
-          <span class="material-symbols-outlined">search</span>
-        </div>
+            <div class="search-box">
+                <input type="text" name="search" placeholder="Cari nama alat" value="{{ $search }}">
+                <span class="material-symbols-outlined" onclick="this.closest('form').submit()">search</span>
+            </div>
 
-        <button class="btn-add">
-          <a href="{{ route('alat.create') }}">
-            <span class="material-symbols-outlined">add</span>
-            Tambah Alat
-          </a>
-        </button>
+            <button type="button" class="btn-add" onclick="window.location.href='{{ route('alat.create') }}'">
+                <span class="material-symbols-outlined">add</span>
+                Tambah Alat
+            </button>
+        </form>
       </div>
 
       <div class="table-dataAlat">
@@ -150,25 +180,23 @@
           </thead>
 
           <tbody>
-            @foreach($alat as $no => $item)
+            @forelse($alat as $no => $item)
             <tr>
-              <td>{{ $no + 1 }}</td>
+              <td>{{ ($alat->currentPage() - 1) * $alat->perPage() + $loop->iteration }}</td>
               <td>{{ $item->nama_alat }}</td>
               <td>
                 <span class="badge tersedia">{{ $item->kategori->nama_kategori }}</span>
               </td>
               <td>{{ $item->jumlah_alat }}</td>
-              
-              <td>{{ $item->jumlah_tersedia ?? $item->jumlah_alat }}</td> 
+              <td>{{ $item->jumlah_tersedia }}</td> 
               <td>
-                @if(($item->jumlah_tersedia ?? $item->jumlah_alat) > 0)
+                @if($item->jumlah_tersedia > 0)
                   <span class="badge tersedia">Tersedia</span>
                 @else
                   <span class="badge tidak">Tidak Tersedia</span>
                 @endif
               </td>
-              <td>{{ $item->jumlah_dipinjam ?? 0 }}</td>
-              
+              <td>{{ $item->jumlah_dipinjam }}</td>
               <td class="aksi" style="text-align: center;">
                 <a href="{{ route('alat.edit', $item->id) }}" class="edit" style="text-decoration: none; display: inline-block; margin-right: 5px;">
                   <span class="material-symbols-outlined" style="color: #ffc107;">edit</span>
@@ -183,7 +211,11 @@
                 </form>
               </td>
             </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="8" style="text-align: center;">Tidak ada data alat ditemukan.</td>
+                </tr>
+            @endforelse
           </tbody>
         </table>
 

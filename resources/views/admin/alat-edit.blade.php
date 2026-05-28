@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah alat</title>
+    <title>Edit Alat</title>
     <link rel="stylesheet" href="{{ asset('css/dashboard-admin.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
@@ -17,7 +17,7 @@
             <div class="menu" onclick="openSidebar()">
                 <span class="material-symbols-outlined">menu</span>
             </div>
-            <h2>Tambah alat</h2>
+            <h2>Edit Alat</h2>
         </header>
 
         <aside class="sidebar">
@@ -79,75 +79,52 @@
 
         <main class="main">
 
-            <div class="add-alat-box">
+            <form action="{{ route('alat.update', $alat->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="add-alat-box">
 
+                    <div class="add-alat-box-form">
+                        <div class="add-alat-box-form-group">
+                            <label for="nama_alat">Nama alat</label>
+                            <input type="text" name="nama_alat" id="nama_alat" value="{{ old('nama_alat', $alat->nama_alat) }}" required>
+                        </div>
 
-                <div class="add-alat-box-form">
-
-                    <div class="add-alat-box-form-group">
-                        <label>Nama alat</label>
-                        <input type="text" placeholder="Masukkan nama alat">
+                        <div class="add-alat-box-form-group">
+                            <label for="kategori_id">Kategori</label>
+                            <select name="kategori_id" id="kategori_id" required>
+                                <option value="">Pilih kategori</option>
+                                @foreach($kategori as $kat)
+                                    <option value="{{ $kat->id }}" {{ $alat->kategori_id == $kat->id ? 'selected' : '' }}>
+                                        {{ $kat->nama_kategori }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="add-alat-box-form-group">
-                        <label>Kategori</label>
-                        <select name="" id="">
-                            <option value="">Pilih kategori</option>
-                            <option value="">Elektronik</option>
-                            <option value="">Olahraga</option>
-                            <option value="">Kebersihan</option>
-                        </select>
+                    <div class="add-alat-box-form">
+                        <div class="add-alat-box-form-group">
+                            <label for="jumlah_alat">Jumlah alat</label>
+                            <input type="number" name="jumlah_alat" id="jumlah_alat" value="{{ old('jumlah_alat', $alat->jumlah_alat) }}" required>
+                        </div>
+
+                        <div class="add-alat-box-form-group">
+                            <label>Alat tersedia (Auto)</label>
+                            <input type="text" value="{{ $alat->jumlah_tersedia ?? $alat->jumlah_alat }}" disabled>
+                        </div>
                     </div>
 
+                    <div class="button-add-alat-group">
+                        <a href="{{ route('alat.index') }}" class="btn btn-cancel" style="text-decoration: none; display: inline-block; line-height: 2.5; text-align: center;">
+                            Batal
+                        </a>
+                        <button type="submit" class="btn btn-save">
+                            Simpan Perubahan
+                        </button>
+                    </div>
                 </div>
-
-                <div class="add-alat-box-form">
-
-                    <div class="add-alat-box-form-group">
-                        <label>Jumlah alat</label>
-                        <input type="text" placeholder="Masukkan jumlah alat">
-                    </div>
-
-                    <div class="add-alat-box-form-group">
-                        <label>Alat tersedia</label>
-                        <input type="text" placeholder="Masukkan jumlah alat tersedia">
-                    </div>
-
-                </div>
-
-                <div class="add-alat-box-form">
-
-                    <div class="add-alat-box-form-group">
-                        <label>Status alat</label>
-                        <select name="status-alat" id="status-alat">
-                            <option value="">Status alat</option>
-                            <option value="dipinjam">Dipinjam</option>
-                            <option value="tersedia">Tersedia</option>
-                            <option value="tidak">Tidak tersedia</option>
-                        </select>
-                    </div>
-
-                    <div class="add-alat-box-form-group">
-                        <label>Alat dipinjam</label>
-                        <input type="text" placeholder="Masukkan jumlah alat dipinjam">
-                    </div>
-
-                </div>
-
-                <div class="button-add-alat-group">
-
-                    <button class="btn btn-cancel">
-                        Batal
-                    </button>
-
-                    <button class="btn btn-save">
-                        Simpan
-                    </button>
-
-                </div>
-
-            </div>
-
+            </form>
         </main>
     </div>
 </body>

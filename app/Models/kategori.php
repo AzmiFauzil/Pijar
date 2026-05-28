@@ -2,13 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Kategori extends Model
 {
+    use HasFactory;
+
     protected $table = 'kategori';
 
     protected $fillable = [
-        'nama_kategori'
+        'nama_kategori',
+        'deskripsi'
     ];
+
+    // Tambahkan relasi ini agar withCount('alat') bisa berfungsi
+    public function alat()
+    {
+        return $this->hasMany(Alat::class, 'kategori_id', 'id');
+    }
 }

@@ -80,6 +80,12 @@
 
         <main class="main">
 
+            @if(session('success'))
+                <div style="padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px; margin-bottom: 20px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="filter-box">
 
                 <div class="search-box">
@@ -88,10 +94,12 @@
                 </div>
 
                 <select>
-                    <option>Semua Kategori</option>
-                    <option value="elektronik">Elektronik</option>
-                    <option value="olahraga">Olahraga</option>
-                    <option value="kebersihan">Kebersihan</option>
+                    <option value="">Semua Kategori</option>
+                    @isset($kategori)
+                    @foreach($kategori as $kat)
+                        <option value="{{ $kat->id }}">{{ $kat->nama_kategori }}</option>
+                    @endforeach
+                    @endisset
                 </select>
 
                 <button class="btn-add">
@@ -117,72 +125,35 @@
                     </thead>
 
                     <tbody>
-
-                        <tr>
-                            <td>1</td>
-                            <td>Elektronik</td>
-                            <td>Kategori alat elektronik seperti proyektor,
-                                terminal, speaker, dll</td>
-                            <td>45</td>
-                            <td class="aksi">
-                                <button class="edit">
-                                    <a href="kategori-edit.blade.php">
+                        @foreach($kategori as $no => $item)
+                            <tr>
+                                <td>{{ ($kategori->currentPage() - 1) * $kategori->perPage() + $no + 1 }}</td>
+                                <td>{{ $item->nama_kategori }}</td>
+                                <td>{{ $item->deskripsi ?? '-' }}</td>
+                                <td>{{ $item->alat_count ?? 0 }}</td>
+                                <td class="aksi">
+                                    <a href="{{ route('kategori.edit', $item->id) }}" class="edit" style="text-decoration: none;">
                                         <span class="material-symbols-outlined">edit</span>
                                     </a>
-                                </button>
 
-                                <button class="hapus">
-                                    <span class="material-symbols-outlined">delete</span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Olahraga</td>
-                            <td>Kategori alat olahraga seperti ayam,
-                                nasi goreng, speaker, dll</td>
-                            <td>20</td>
-                            <td class="aksi">
-                                <button class="edit">
-                                    <a href="kategori-edit.blade.php">
-                                        <span class="material-symbols-outlined">edit</span>
-                                    </a>
-                                </button>
-
-                                <button class="hapus">
-                                    <span class="material-symbols-outlined">delete</span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Kebersihan</td>
-                            <td>Kategori alat kebersihan seperti pel,
-                                sapu, ember, dll</td>
-                            <td>45</td>
-                            <td class="aksi">
-                               <button class="edit">
-                                    <a href="{{ url('/admin.kategori-edit') }}"> 
-                                        <span class="material-symbols-outlined">edit</span>
-                                    </a>
-                                </button>
-
-                                <button class="hapus">
-                                    <span class="material-symbols-outlined">delete</span>
-                                </button>
-                            </td>
-                        </tr>
-
+                                    <form action="{{ route('kategori.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="hapus" style="background:none; border:none; padding:0; cursor:pointer;">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
-
                 </table>
+
+                <div style="margin-top: 20px;">
+                    {{ $kategori->links() }}
+                </div>
             </div>
-
-
         </main>
-
 </body>
 
 </html>

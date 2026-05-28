@@ -12,7 +12,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::latest()->paginate(5);
+        $kategori = Kategori::withCount('alat')->latest()->paginate(5);
         return view('admin.category-admin', compact('kategori'));
     }
 
