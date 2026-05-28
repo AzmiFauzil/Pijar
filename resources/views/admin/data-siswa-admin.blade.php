@@ -30,24 +30,24 @@
 
      <ul class="list">
     <li class="item">
-        <a href="{{ url('/dashboard-admin') }}">
+        <a href="{{ route('admin.dashboard') }}">
             <span class="material-symbols-outlined">home</span>
             Dashboard Admin
         </a>
     </li>
     <li class="item">
-        <a href="{{ url('/data-siswa-admin') }}">
+        <a href="{{ route('admin.siswa.index') }}">
             <span class="material-symbols-outlined">manage_accounts</span>
             Data siswa
         </a>
     </li>
     <li class="item">
-        <a href="{{ url('/alat') }}"> <span class="material-symbols-outlined">folder_managed</span>
+        <a href="{{ route('alat.index') }}"> <span class="material-symbols-outlined">folder_managed</span>
             Data alat
         </a>
     </li>
     <li class="item">
-        <a href="{{ url('/kategori') }}"> <span class="material-symbols-outlined">category</span>
+        <a href="{{ route('kategori.index') }}"> <span class="material-symbols-outlined">category</span>
             Kategori
         </a>
     </li>
@@ -80,13 +80,13 @@
     <main class="main">
        <div class="filter-box">
 
-    <div class="search-box">
-      <input type="text" placeholder="Cari Nama atau NIS">
-      <span class="material-symbols-outlined">search</span>
-    </div>
+    <form action="{{ route('admin.siswa.index') }}" method="GET" class="search-box">
+      <input type="text" name="search" value="{{ $search }}" placeholder="Cari Nama atau NIS">
+      <span class="material-symbols-outlined" onclick="this.closest('form').submit()">search</span>
+    </form>
 
     <button class="btn-add">
-      <a href="siswa-tambah.blade.php">
+      <a href="{{ route('admin.siswa.create') }}">
         <span class="material-symbols-outlined">add</span>
       Tambah Siswa
       </a>
@@ -108,189 +108,37 @@
         </thead>
 
         <tbody>
+            @forelse($siswas as $no => $item)
             <tr>
-                <td>1</td>
-                <td>2023001</td>
-                <td>Nesya</td>
-                <td>XI PPLG</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
+                <td>{{ ($siswas->currentPage() - 1) * $siswas->perPage() + $loop->iteration }}</td>
+                <td>{{ $item->NIS }}</td>
+                <td>{{ $item->nama_user }}</td>
+                <td>{{ $item->kelas }}</td>
+                <td>{{ $item->no_telepon }}</td>
+                <td>{{ $item->email }}</td>
                 <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
+            <a href="{{ route('admin.siswa.edit', $item->id) }}" class="edit">
+              <span class="material-symbols-outlined" style="color: #ffc107;">edit</span>
+            </a>
 
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
+            <form action="{{ route('admin.siswa.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus siswa ini?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="hapus" style="background:none; border:none; padding:0;">
+                  <span class="material-symbols-outlined" style="color: #dc3545;">delete</span>
+                </button>
+            </form>
           </td>
             </tr>
-
-            <tr>
-                <td>2</td>
-                <td>2023001</td>
-                <td>Aul</td>
-                <td>XI DKV</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>2023001</td>
-                <td>Rahmat</td>
-                <td>XII PPLG</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>            
-        </tr>
-
-            <tr>
-                <td>4</td>
-                <td>2023001</td>
-                <td>Keonho</td>
-                <td>X PPLG</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-            <tr>
-                <td>5</td>
-                <td>2023001</td>
-                <td>Han Sohee</td>
-                <td>XII DKV</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-            <tr>
-                <td>6</td>
-                <td>2023001</td>
-                <td>Mulyono</td>
-                <td>XI PPLG</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-            <tr>
-                <td>7</td>
-                <td>2023001</td>
-                <td>CEO MBG</td>
-                <td>XII DKV</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-            <tr>
-                <td>8</td>
-                <td>2023001</td>
-                <td>Fufufafa</td>
-                <td>X DKV</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-            <tr>
-                <td>9</td>
-                <td>2020207</td>
-                <td>Windut</td>
-                <td>XII DKV</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td>
-                <td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-            <tr>
-                <td>10</td>
-                <td>2020207</td>
-                <td>Kurniawan</td>
-                <td>X DKV</td>
-                <td>0812345678</td>
-                <td>email@gmail.com</td><td class="aksi">
-            <button class="edit">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-
-            <button class="hapus">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </td>
-            </tr>
-
-
+            @empty
+            <tr><td colspan="7" style="text-align:center;">Data tidak ditemukan.</td></tr>
+            @endforelse
         </tbody>
     </table>
 
+    <div style="margin-top:20px;">
+        {{ $siswas->links() }}
+    </div>
 
   </div>
 

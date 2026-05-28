@@ -30,7 +30,7 @@
 
             <ul class="list">
                 <li class="item">
-                    <a href="{{ url('/dashboard-admin') }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         <span class="material-symbols-outlined">home</span>
                         Dashboard Admin
                     </a>
@@ -79,8 +79,7 @@
                 </li>
 
                 <li class="logout-btn">
-                    <button class="btn btn-logout" onclick="window.location.href='{{ url('/logout') }}'">
-                        <a href="{{ url('/logout') }}" style="color: white; text-decoration: none;">Logout</a>
+                    <button class="btn btn-logout" onclick="window.location.href='{{ url('/logout') }}'" style="color: white; text-decoration: none;">
                     </button>
                 </li>
             </ul>
@@ -94,7 +93,7 @@
                         <h3>Total Alat</h3>
                         <span class="material-symbols-outlined">format_list_bulleted</span>
                     </div>
-                    <h4>120</h4>
+                    <h4>{{ $total_alat }}</h4>
                 </div>
 
                 <div class="card">
@@ -102,7 +101,7 @@
                         <h3>Alat Dipinjam</h3>
                         <span class="material-symbols-outlined">format_list_bulleted_add</span>
                     </div>
-                    <h4>45</h4>
+                    <h4>{{ $total_dipinjam }}</h4>
                 </div>
 
                 <div class="card">
@@ -110,7 +109,7 @@
                         <h3>Alat Tersedia</h3>
                         <span class="material-symbols-outlined">checklist</span>
                     </div>
-                    <h4>75</h4>
+                    <h4>{{ $total_tersedia }}</h4>
                 </div>
 
                 <div class="card">
@@ -118,7 +117,7 @@
                         <h3>Jumlah User</h3>
                         <span class="material-symbols-outlined">user_attributes</span>
                     </div>
-                    <h4>120</h4>
+                    <h4>{{ $total_user }}</h4>
                 </div>
 
             </div>
@@ -145,35 +144,20 @@
 
                     <div class="warning">
 
-                        <div class="warning-item">
-                            <img src="img/image.png" alt="">
-
-                            <div class="text">
-                                <h4>InFocus IN1124</h4>
-                                <p>Dipinjam oleh : Anisa</p>
-                                <div class="late-red">Terlambat 3 hari</div>
+                        @forelse($late_peminjaman as $late)
+                            <div class="warning-item">
+                                <img src="{{ asset('images/logo_pijar.png') }}" alt="" style="width: 40px; height: 40px; object-fit: contain;">
+                                <div class="text">
+                                    <h4>{{ $late->nama_alat }}</h4>
+                                    <p>Dipinjam oleh : {{ $late->nama_user }}</p>
+                                    <div class="late-red">
+                                        Terlambat {{ now()->diffInDays(\Carbon\Carbon::parse($late->tanggal_peminjaman)) }} hari
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="warning-item">
-                            <img src="img/image.png" alt="">
-
-                            <div class="text">
-                                <h4>InFocus IN1124</h4>
-                                <p>Dipinjam oleh : Aul</p>
-                                <div class="late-orange">Terlambat 1 hari</div>
-                            </div>
-                        </div>
-
-                        <div class="warning-item">
-                            <img src="img/image.png" alt="">
-
-                            <div class="text">
-                                <h4>InFocus IN1124</h4>
-                                <p>Dipinjam oleh : Pei</p>
-                                <div class="late-red">Terlambat 3 hari</div>
-                            </div>
-                        </div>
+                        @empty
+                            <p style="text-align: center; padding: 20px; font-size: 12px; color: #666;">Tidak ada keterlambatan.</p>
+                        @endforelse
 
                     </div>
 
@@ -198,50 +182,22 @@
                     </thead>
 
                     <tbody>
+                        @foreach($recent_peminjaman as $no => $item)
                         <tr>
-                            <td>1</td>
-                            <td>Anisa</td>
-                            <td>Proyektor</td>
-                            <td>12 Mei 2026</td>
-                            <td>15 Mei 2026</td>
-                            <td><button class="borrow">Dipinjam</button></td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->nama_user }}</td>
+                            <td>{{ $item->nama_alat }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d M Y') }}</td>
+                            <td>-</td>
+                            <td>
+                                @if($item->return_id)
+                                    <button class="return">Dikembalikan</button>
+                                @else
+                                    <button class="borrow">Dipinjam</button>
+                                @endif
+                            </td>
                         </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Safei</td>
-                            <td>Kamera</td>
-                            <td>13 Mei 2026</td>
-                            <td>16 Mei 2026</td>
-                            <td><button class="return">Dikembalikan</button></td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Nurul</td>
-                            <td>Terminal</td>
-                            <td>11 Mei 2026</td>
-                            <td>14 Mei 2026</td>
-                            <td><button class="late">Terlambat</button></td>
-                        </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Amalia</td>
-                            <td>Proyektor</td>
-                            <td>11 Mei 2026</td>
-                            <td>14 Mei 2026</td>
-                            <td><button class="late">Terlambat</button></td>
-                        </tr>
-
-                        <tr>
-                            <td>5</td>
-                            <td>Putri</td>
-                            <td>Pel</td>
-                            <td>11 Mei 2026</td>
-                            <td>14 Mei 2026</td>
-                            <td><button class="late">Terlambat</button></td>
-                        </tr>
+                        @endforeach
                     </tbody>
 
                 </table>

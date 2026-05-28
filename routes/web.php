@@ -20,9 +20,7 @@ Route::post('/login', [AuthController::class, 'proses_login']);
 Route::get('/dashboard', [AuthController::class, 'dashboard']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/dashboard-admin', function () {
-    return view('admin.dashboard-admin');
-});
+Route::get('/dashboard-admin', [AuthController::class, 'dashboard_admin'])->name('admin.dashboard');
 
 Route::get('/dashboard-petugas', function () {
     return view('petugas.dashboard-petugas');

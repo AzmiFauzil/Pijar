@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Alat;
+use App\Models\Kategori;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -73,7 +76,42 @@ class AuthController extends Controller
 
     public function dashboard_admin()
     {
-        return view('admin.dashboard-admin');
+        $total_alat = Alat::sum('jumlah_alat');
+        
+        // Menghitung total alat yang sedang dipinjam (belum dikembalikan)
+        $total_dipinjam = DB::table('peminjaman')
+            ->leftJoin('pengembalian', 'peminjaman.id', '=', 'pengembalian.peminjaman_id')
+            ->whereNull('pengembalian.id')
+            ->sum('peminjaman.jumlah') ?? 0;
+            
+        $total_tersedia = $total_alat - $total_dipinjam;
+        // Menghitung user dengan role 'user' (siswa) sesuai method proses_register
+        $total_user = User::where('role', 'user')->count();
+
+        // Mengambil data peminjaman terbaru untuk tabel
+        $recent_peminjaman = DB::table('peminjaman')
+            ->join('user', 'peminjaman.user_id', '=', 'user.id')
+            ->join('alat', 'peminjaman.alat_id', '=', 'alat.id')
+            ->leftJoin('pengembalian', 'peminjaman.id', '=', 'pengembalian.peminjaman_id')
+            ->select('peminjaman.*', 'user.nama_user', 'alat.nama_alat', 'pengembalian.id as return_id')
+            ->latest('peminjaman.created_at')
+            ->limit(5)
+            ->get();
+            
+        // Mengambil data peringatan (terlambat > 3 hari)
+        $late_peminjaman = DB::table('peminjaman')
+            ->join('user', 'peminjaman.user_id', '=', 'user.id')
+            ->join('alat', 'peminjaman.alat_id', '=', 'alat.id')
+            ->leftJoin('pengembalian', 'peminjaman.id', '=', 'pengembalian.peminjaman_id')
+            ->whereNull('pengembalian.id')
+            ->where('peminjaman.tanggal_peminjaman', '<', now()->subDays(3))
+            ->select('peminjaman.*', 'user.nama_user', 'alat.nama_alat')
+            ->limit(3)
+            ->get();
+
+        return view('admin.dashboard-admin', compact(
+            'total_alat', 'total_dipinjam', 'total_tersedia', 'total_user', 'recent_peminjaman', 'late_peminjaman'
+        ));
     }
 
     public function dashboard_petugas()

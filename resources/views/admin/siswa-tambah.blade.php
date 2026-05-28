@@ -30,7 +30,7 @@
 
             <ul class="list">
     <li class="item">
-        <a href="{{ url('/dashboard-admin') }}">
+        <a href="{{ route('admin.dashboard') }}">
             <span class="material-symbols-outlined">home</span>
             Dashboard Admin
         </a>
@@ -79,77 +79,71 @@
 
         <main class="main">
 
-            <div class="add-siswa-box">
+            <form action="{{ route('admin.siswa.store') }}" method="POST">
+                @csrf
+                <div class="add-siswa-box">
 
+                    <div class="add-siswa-box-form">
+                        <div class="add-siswa-box-form-group">
+                            <label>NIS</label>
+                            <input type="text" name="NIS" value="{{ old('NIS') }}" placeholder="Masukkan NIS" required>
+                            @error('NIS') <span style="color:red; font-size:12px;">{{ $message }}</span> @enderror
+                        </div>
 
-                <div class="add-siswa-box-form">
-
-                    <div class="add-siswa-box-form-group">
-                        <label>NIS</label>
-                        <input type="text" placeholder="Masukkan NIS">
+                        <div class="add-siswa-box-form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="nama_user" value="{{ old('nama_user') }}" placeholder="Masukkan nama lengkap" required>
+                        </div>
                     </div>
 
-                    <div class="add-siswa-box-form-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" placeholder="Masukkan nama lengkap">
+                    <div class="add-siswa-box-form">
+                        <div class="add-siswa-box-form-group">
+                            <label>Kelas</label>
+                            <select name="kelas" required>
+                                <option value="">Pilih kelas</option>
+                                <option value="X DKV" {{ old('kelas') == 'X DKV' ? 'selected' : '' }}>X DKV</option>
+                                <option value="X PPLG" {{ old('kelas') == 'X PPLG' ? 'selected' : '' }}>X PPLG</option>
+                                <option value="XI DKV" {{ old('kelas') == 'XI DKV' ? 'selected' : '' }}>XI DKV</option>
+                                <option value="XI PPLG" {{ old('kelas') == 'XI PPLG' ? 'selected' : '' }}>XI PPLG</option>
+                            </select>
+                        </div>
+
+                        <div class="add-siswa-box-form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email" required>
+                            @error('email') <span style="color:red; font-size:12px;">{{ $message }}</span> @enderror
+                        </div>
                     </div>
 
+                    <div class="add-siswa-box-form">
+                        <div class="add-siswa-box-form-group">
+                            <label>No. HP</label>
+                            <input type="text" name="no_telepon" value="{{ old('no_telepon') }}" placeholder="Masukkan no HP" required>
+                        </div>
+
+                        <div class="add-siswa-box-form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="Masukkan password" required>
+                        </div>
+                    </div>
+
+                    <div class="add-siswa-box-form">
+                        <div class="add-siswa-box-form-group">
+                            <label>Konfirmasi Password</label>
+                            <input type="password" name="password_confirmation" placeholder="Ulangi password" required>
+                        </div>
+                    </div>
+
+                    <div class="button-add-siswa-group">
+                        <a href="{{ route('admin.siswa.index') }}" class="btn btn-cancel" style="text-decoration:none; line-height:2.5; text-align:center;">
+                            Batal
+                        </a>
+                        <button type="submit" class="btn btn-save">
+                            Simpan
+                        </button>
+                    </div>
                 </div>
-
-                <div class="add-siswa-box-form">
-
-                    <div class="add-siswa-box-form-group">
-                        <label>Kelas</label>
-
-                        <select>
-                            <option>Pilih kelas</option>
-                            <option>X DKV</option>
-                            <option>X PPLG</option>
-                            <option>XI DKV</option>
-                            <option>XI PPLG</option>
-                        </select>
-                    </div>
-
-                    <div class="add-siswa-box-form-group">
-                        <label>Jenis Kelamin</label>
-
-                        <select>
-                            <option>Pilih jenis kelamin</option>
-                            <option>Laki-laki</option>
-                            <option>Perempuan</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="add-siswa-box-form">
-
-                    <div class="add-siswa-box-form-group">
-                        <label>No. HP</label>
-                        <input type="text" placeholder="Masukkan no HP">
-                    </div>
-
-                    <div class="add-siswa-box-form-group">
-                        <label>Email</label>
-                        <input type="email" placeholder="Masukkan email">
-                    </div>
-
-                </div>
-
-                <div class="button-add-siswa-group">
-
-                    <button class="btn btn-cancel">
-                        Batal
-                    </button>
-
-                    <button class="btn btn-save">
-                        Simpan
-                    </button>
-
-                </div>
-
-            </div>
-
+            </form>
         </main>
     </div>
 </body>
